@@ -1,0 +1,4 @@
+name: CReports
+version: '${version}'
+main: coma112.creports.CReports
+api-version: '1.20'
