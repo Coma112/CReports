@@ -16,6 +16,7 @@ public class Language extends ConfigUtils {
         yml.addDefault("messages.no-permission", "&cYou do not have permission to do this!");
         yml.addDefault("messages.reload", "&aI have successfully reloaded the files!");
         yml.addDefault("messages.player-required", "&cPlayer is required!");
+        yml.addDefault("messages.report-right-usage", "&c/report [player] [reason]");
 
         yml.options().copyDefaults(true);
         save();

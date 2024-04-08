@@ -17,14 +17,10 @@ public abstract class PluginCommand extends Command {
         Objects.requireNonNull(commandInfo, "Commands must have CommandInfo annotation");
     }
 
-    public CommandInfo getCommandInfo() {
-        return commandInfo;
-    }
-
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (!commandInfo.permission().isEmpty()) {
-            if (!sender.hasPermission(commandInfo.permission()) || !sender.isOp()) {
+            if (!sender.hasPermission(commandInfo.permission())) {
                 sender.sendMessage(MessageKeys.NO_PERMISSION);
                 return true;
             }

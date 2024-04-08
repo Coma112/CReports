@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class MySQL extends DatabaseManager {
     private final Connection connection;
