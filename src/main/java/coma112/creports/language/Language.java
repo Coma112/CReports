@@ -17,6 +17,9 @@ public class Language extends ConfigUtils {
         yml.addDefault("messages.reload", "&aI have successfully reloaded the files!");
         yml.addDefault("messages.player-required", "&cPlayer is required!");
         yml.addDefault("messages.report-right-usage", "&c/report [player] [reason]");
+        yml.addDefault("messages.can't-report-yourself", "&cYou can't report yourself!");
+        yml.addDefault("messages.admin-message", "&2{sender} &areported &2{target} &a@ &2{date} &afor &2{reason}&a.");
+        yml.addDefault("messages.successful-report", "&aYou have successfully reported &2{target}&a!");
 
         yml.options().copyDefaults(true);
         save();

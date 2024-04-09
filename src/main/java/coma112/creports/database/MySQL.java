@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
@@ -72,7 +72,7 @@ public class MySQL extends DatabaseManager {
 
     @Override
     public void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS reports (ID INT AUTO_INCREMENT PRIMARY KEY, PLAYER VARCHAR(255) NOT NULL, TARGET VARCHAR(255) NOT NULL, REPORT_TEXT VARCHAR(255), REPORT_DATE DATE)";
+        String query = "CREATE TABLE IF NOT EXISTS reports (ID INT AUTO_INCREMENT PRIMARY KEY, PLAYER VARCHAR(255) NOT NULL, TARGET VARCHAR(255) NOT NULL, REPORT_TEXT VARCHAR(255) NOT NULL, REPORT_DATE VARCHAR(255) NOT NULL)";
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.execute();
@@ -82,7 +82,7 @@ public class MySQL extends DatabaseManager {
     }
 
     @Override
-    public void createReport(@NotNull OfflinePlayer player, @NotNull OfflinePlayer target, String reportText, Date reportDate) {
+    public void createReport(@NotNull OfflinePlayer player, @NotNull OfflinePlayer target, @NotNull String reportText, @NotNull String reportDate) {
         String query = "INSERT INTO reports (PLAYER, TARGET, REPORT_TEXT, REPORT_DATE) VALUES (?, ?, ?, ?)";
 
         try {
@@ -90,7 +90,7 @@ public class MySQL extends DatabaseManager {
                 preparedStatement.setString(1, player.getName());
                 preparedStatement.setString(2, target.getName());
                 preparedStatement.setString(3, reportText);
-                preparedStatement.setDate(4, reportDate);
+                preparedStatement.setString(4, reportDate);
                 preparedStatement.executeUpdate();
             }
         } catch (SQLException exception) {

@@ -10,6 +10,9 @@ public class MessageKeys {
     public static String RELOAD = PREFIX + getString("messages.reload");
     public static String PLAYER_REQUIRED = PREFIX + getString("messages.player-required");
     public static String REPORT_RIGHT_USAGE = PREFIX + getString("messages.report-right-usage");
+    public static String CANT_REPORT_YOURSELF = PREFIX + getString("messages.can't-report-yourself");
+    public static String ADMIN_MESSAGE = PREFIX + getString("messages.admin-message");
+    public static String SUCCESSFUL_REPORT = PREFIX + getString("messages.successful-report");
 
     private static String getString(@NotNull String path) {
         return MessageProcessor.process(CReports.getInstance().getLanguage().getString(path));

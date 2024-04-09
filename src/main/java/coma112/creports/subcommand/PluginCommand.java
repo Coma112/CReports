@@ -20,7 +20,7 @@ public abstract class PluginCommand extends Command {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (!commandInfo.permission().isEmpty()) {
-            if (!sender.hasPermission(commandInfo.permission())) {
+            if (!sender.hasPermission(commandInfo.permission()) || !sender.isOp()) {
                 sender.sendMessage(MessageKeys.NO_PERMISSION);
                 return true;
             }
