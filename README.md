@@ -4,17 +4,16 @@ This is a Minecraft plugin coded in spigot with Paper framework. The plugin is a
 
 # Last commit 💯
 
-- I fixed the date in CommandReport.java
-- I added custom messages.
-- I added emojis for more readability in README.md
+- I tried to add the GUI
 
 # Server Status ✅
 
-- 🟩 WORKING
+-  🟥 NOT WORKING
 
 # TODO ⭕
 
 - I need to fix that if the command has not got any mentioned required permission then it's still required for some reason
+- When I run a command nothing happens.
 
 # Sources I used ❓
 

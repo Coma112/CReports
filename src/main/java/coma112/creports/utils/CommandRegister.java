@@ -3,6 +3,7 @@ package coma112.creports.utils;
 import coma112.creports.CReports;
 import coma112.creports.commands.CommandReload;
 import coma112.creports.commands.CommandReport;
+import coma112.creports.commands.CommandReportMenu;
 import coma112.creports.subcommand.PluginCommand;
 import org.bukkit.Bukkit;
 
@@ -29,6 +30,7 @@ public class CommandRegister {
         Set<Class<? extends PluginCommand>> commandClasses = new HashSet<>();
         commandClasses.add(CommandReload.class);
         commandClasses.add(CommandReport.class);
+        commandClasses.add(CommandReportMenu.class);
         return commandClasses;
     }
 }

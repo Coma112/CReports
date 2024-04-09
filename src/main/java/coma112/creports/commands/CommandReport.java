@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Date;
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Objects;
@@ -21,7 +19,6 @@ public class CommandReport extends PluginCommand {
 
     public CommandReport() {
         super("report");
-        //report [player] [reason]
     }
 
     @Override

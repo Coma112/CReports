@@ -3,6 +3,7 @@ package coma112.creports.database;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import coma112.creports.CReports;
+import coma112.creports.managers.Report;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -11,10 +12,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 public class MySQL extends DatabaseManager {
     private final Connection connection;
@@ -96,6 +97,30 @@ public class MySQL extends DatabaseManager {
         } catch (SQLException exception) {
             throw new RuntimeException(exception);
         }
+    }
+
+    @Override
+    public List<Report> getReports() {
+        List<Report> reports = new ArrayList<>();
+
+        String query = "SELECT * FROM reports";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("ID");
+                String player = resultSet.getString("PLAYER");
+                String target = resultSet.getString("TARGET");
+                String reason = resultSet.getString("REPORT_TEXT");
+                String date = resultSet.getString("REPORT_DATE");
+
+                reports.add(new Report(id, player, target, reason, date));
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
+
+        return reports;
     }
 
     @Override
