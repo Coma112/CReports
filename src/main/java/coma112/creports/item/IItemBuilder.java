@@ -36,6 +36,8 @@ public interface IItemBuilder {
 
     IItemBuilder setName(@NotNull String name);
 
+    ItemBuilder setLocalizedName(@NotNull String name);
+
     ItemBuilder addEnchantment(@NotNull Enchantment enchantment, int level);
 
     default IItemBuilder addEnchantments(Map<Enchantment, Integer> enchantments) {

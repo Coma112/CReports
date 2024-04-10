@@ -13,6 +13,7 @@ public class MessageKeys {
     public static String CANT_REPORT_YOURSELF = PREFIX + getString("messages.can't-report-yourself");
     public static String ADMIN_MESSAGE = PREFIX + getString("messages.admin-message");
     public static String SUCCESSFUL_REPORT = PREFIX + getString("messages.successful-report");
+    public static String OFFLINE_PLAYER = PREFIX + getString("messages.player-is-offline");
 
     private static String getString(@NotNull String path) {
         return MessageProcessor.process(CReports.getInstance().getLanguage().getString(path));

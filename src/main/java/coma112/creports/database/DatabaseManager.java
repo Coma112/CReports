@@ -13,5 +13,8 @@ public abstract class DatabaseManager {
     public abstract boolean isConnected();
     public abstract void disconnect();
     public abstract List<Report> getReports();
+
+    public abstract void removeReport(@NotNull Report report);
+
     public abstract void reconnect(@NotNull ConfigurationSection section);
 }

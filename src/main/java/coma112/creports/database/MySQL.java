@@ -113,7 +113,6 @@ public class MySQL extends DatabaseManager {
                 String target = resultSet.getString("TARGET");
                 String reason = resultSet.getString("REPORT_TEXT");
                 String date = resultSet.getString("REPORT_DATE");
-
                 reports.add(new Report(id, player, target, reason, date));
             }
         } catch (SQLException exception) {
@@ -121,6 +120,20 @@ public class MySQL extends DatabaseManager {
         }
 
         return reports;
+    }
+
+    @Override
+    public void removeReport(@NotNull Report report) {
+        String query = "DELETE FROM reports WHERE ID = ?";
+
+        try {
+            try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
+                preparedStatement.setInt(1, report.id());
+                preparedStatement.executeUpdate();
+            }
+        } catch (SQLException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 
     @Override

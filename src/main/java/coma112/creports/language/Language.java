@@ -20,6 +20,7 @@ public class Language extends ConfigUtils {
         yml.addDefault("messages.can't-report-yourself", "&cYou can't report yourself!");
         yml.addDefault("messages.admin-message", "&2{sender} &areported &2{target} &a@ &2{date} &afor &2{reason}&a.");
         yml.addDefault("messages.successful-report", "&aYou have successfully reported &2{target}&a!");
+        yml.addDefault("messages.player-is-offline", "&cPlayer is offline!");
 
         yml.options().copyDefaults(true);
         save();

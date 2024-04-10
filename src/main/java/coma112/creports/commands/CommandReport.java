@@ -23,11 +23,6 @@ public class CommandReport extends PluginCommand {
 
     @Override
     public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
-        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-        String reason = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = dateFormat.format(new java.util.Date());
-
         if (!(sender instanceof Player player)) {
             sender.sendMessage(MessageKeys.PLAYER_REQUIRED);
             return true;
@@ -37,6 +32,11 @@ public class CommandReport extends PluginCommand {
             player.sendMessage(MessageKeys.REPORT_RIGHT_USAGE);
             return true;
         }
+
+        OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+        String reason = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = dateFormat.format(new java.util.Date());
 
         if (target == player) {
             player.sendMessage(MessageKeys.CANT_REPORT_YOURSELF);

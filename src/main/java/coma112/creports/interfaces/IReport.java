@@ -1,13 +1,13 @@
 package coma112.creports.interfaces;
 
 public interface IReport {
-    int getId();
+    int id();
 
-    String getPlayer();
+    String player();
 
-    String getTarget();
+    String target();
 
-    String getReason();
+    String reason();
 
-    String getDate();
+    String date();
 }

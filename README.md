@@ -4,18 +4,20 @@ This is a Minecraft plugin coded in spigot with Paper framework. The plugin is a
 
 # Last commit 💯
 
-- I tried to add the GUI
+- I added the report GUI
+- I fixed the 'nothing happens' problem
+- I added if the player clicks on a report it teleports it to the target
 
 # Server Status ✅
 
--  🟥 NOT WORKING
+- 🟩 WORKING
 
 # TODO ⭕
 
 - I need to fix that if the command has not got any mentioned required permission then it's still required for some reason
-- When I run a command nothing happens.
+- I need to remove the 'Thing' text from the lore in the report menu
 
-# Sources I used ❓
+# Sources I used 🌐
 
 - ❇️ W3Schools.com
 - ❇️ spigotmc.org 

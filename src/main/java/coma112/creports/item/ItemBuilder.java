@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Range;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("deprecation")
 public class ItemBuilder implements IItemBuilder {
     private final ItemStack is;
     private final ItemMeta meta;
@@ -35,7 +36,6 @@ public class ItemBuilder implements IItemBuilder {
         this(type, amount, damage, null);
     }
 
-    @SuppressWarnings("deprecation")
     public ItemBuilder(@NotNull Material type, @Range(from = 0, to = 64) int amount, short damage, @Nullable Byte data) {
         is = new ItemStack(type, amount, damage, data);
         meta = is.getItemMeta();
@@ -53,10 +53,15 @@ public class ItemBuilder implements IItemBuilder {
         return this;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public ItemBuilder setName(@NotNull String name) {
         meta.setDisplayName(MessageProcessor.process(name));
+        return this;
+    }
+
+    @Override
+    public ItemBuilder setLocalizedName(@NotNull String name) {
+        meta.setLocalizedName(name);
         return this;
     }
 
@@ -66,7 +71,6 @@ public class ItemBuilder implements IItemBuilder {
         return this;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public ItemBuilder addLore(@NotNull String lore) {
         List<String> lores = meta.getLore();
@@ -90,7 +94,6 @@ public class ItemBuilder implements IItemBuilder {
         return this;
     }
 
-    @SuppressWarnings("deprecation")
     @Override
     public ItemBuilder removeLore(int line) {
         List<String> lores = meta.getLore();

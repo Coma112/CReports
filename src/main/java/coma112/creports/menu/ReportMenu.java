@@ -1,14 +1,15 @@
 package coma112.creports.menu;
 
 import coma112.creports.CReports;
+import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
 import coma112.creports.processor.MessageProcessor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@SuppressWarnings("deprecation")
 public class ReportMenu {
     private static final Map<UUID, Inventory> playerInventories = new HashMap<>();
     private static final Map<Inventory, Integer> refreshTasks = new HashMap<>();
@@ -29,7 +31,6 @@ public class ReportMenu {
         return playerInventories.get(player.getUniqueId());
     }
 
-    @SuppressWarnings("deprecation")
     public static void open(@NotNull Player player) {
         if (playerInventories.containsKey(player.getUniqueId())) return;
 
@@ -47,8 +48,10 @@ public class ReportMenu {
         if (inventory != null) {
             List<Report> reports = CReports.getDatabaseManager().getReports();
             int slot = 0;
+
             for (Report report : reports) {
                 ItemStack item = createReportItem(report);
+
                 if (item != null) {
                     inventory.setItem(slot, item);
                     slot++;
@@ -58,22 +61,17 @@ public class ReportMenu {
         }
     }
 
-    @SuppressWarnings("deprecation")
     private static ItemStack createReportItem(Report report) {
-        ItemStack item = new ItemStack(Material.BRICK);
-        ItemMeta meta = item.getItemMeta();
-        if (meta != null) {
-            meta.setDisplayName(report.getPlayer());
-            meta.setLore(List.of(
-                    "Reason: " + report.getReason(),
-                    "Target: " + report.getTarget(),
-                    "Date: " + report.getDate(),
-                    "ID: " + report.getId()
-            ));
-            item.setItemMeta(meta);
-            return item;
-        }
-        return null;
+        return IItemBuilder.create(Material.MOJANG_BANNER_PATTERN)
+                .setName("&2" + report.player() + "&a's report (#" + report.id() + ")")
+                .addLore("")
+                .addLore("&bTARGET: &a" + report.target())
+                .addLore("&bREASON: &a" + report.reason())
+                .addLore("&bDATE: &a" + report.date())
+                .addLore("")
+                .addLore("&aClick if you want to teleport to the target!")
+                .setLocalizedName(report.target())
+                .finish();
     }
 
     private static void run(@NotNull Player player, @NotNull Inventory inventory) {
