@@ -35,9 +35,12 @@ public class ReportMenuListener implements Listener {
         String targetName = event.getCurrentItem().getItemMeta().getLocalizedName();
         Player target = player.getServer().getPlayerExact(targetName);
 
-        if (target == null) {
+        if (event.getCurrentItem().getItemMeta().hasLocalizedName()) {
+            if (target == null) {
             player.sendMessage(MessageKeys.OFFLINE_PLAYER);
             return;
+
+            }
         }
 
         player.teleport(target.getLocation());
@@ -58,3 +61,5 @@ public class ReportMenuListener implements Listener {
         }
     }
 }
+
+

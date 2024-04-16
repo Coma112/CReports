@@ -1,14 +1,13 @@
 package coma112.creports.menu;
-
 import coma112.creports.CReports;
 import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
 import coma112.creports.processor.MessageProcessor;
+import coma112.creports.storage.ItemStorage;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -39,6 +38,8 @@ public class ReportMenu {
 
         refresh(player);
         run(player, inventory);
+        inventory.setItem(45, ItemStorage.BACK);
+        inventory.setItem(53, ItemStorage.FORWARD);
         player.openInventory(inventory);
     }
 
@@ -61,7 +62,8 @@ public class ReportMenu {
         }
     }
 
-    private static ItemStack createReportItem(Report report) {
+
+    private static ItemStack createReportItem(@NotNull Report report) {
         return IItemBuilder.create(Material.MOJANG_BANNER_PATTERN)
                 .setName("&2" + report.player() + "&a's report (#" + report.id() + ")")
                 .addLore("")
@@ -82,3 +84,5 @@ public class ReportMenu {
         }, 20L, 5L));
     }
 }
+
+

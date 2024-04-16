@@ -1,4 +1,4 @@
 name: CReports
-version: '${version}'
+version: '1.0'
 main: coma112.creports.CReports
 api-version: '1.20'

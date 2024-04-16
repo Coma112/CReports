@@ -7,9 +7,11 @@ import coma112.creports.language.Language;
 import coma112.creports.utils.CommandRegister;
 import coma112.creports.utils.ListenerRegister;
 import lombok.Getter;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Objects;
 
 public final class CReports extends JavaPlugin {
@@ -18,7 +20,6 @@ public final class CReports extends JavaPlugin {
     @Getter private static DatabaseManager databaseManager;
     private static Language language;
     private static ReportsYML reportsYML;
-
 
     @Override
     public void onEnable() {

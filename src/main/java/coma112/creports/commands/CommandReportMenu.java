@@ -1,5 +1,6 @@
 package coma112.creports.commands;
 
+import coma112.creports.CReports;
 import coma112.creports.language.MessageKeys;
 import coma112.creports.menu.ReportMenu;
 import coma112.creports.subcommand.CommandInfo;

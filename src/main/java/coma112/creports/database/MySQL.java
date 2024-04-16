@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import coma112.creports.CReports;
 import coma112.creports.managers.Report;
+import lombok.Getter;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
+@Getter
 public class MySQL extends DatabaseManager {
     private final Connection connection;
 
@@ -144,10 +146,6 @@ public class MySQL extends DatabaseManager {
         } catch (SQLException exception) {
             throw new RuntimeException("Failed to reconnect to the database", exception);
         }
-    }
-
-    public Connection getConnection() {
-        return connection;
     }
 
 

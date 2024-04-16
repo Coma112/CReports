@@ -4,9 +4,9 @@ This is a Minecraft plugin coded in spigot with Paper framework. The plugin is a
 
 # Last commit 💯
 
-- I added the report GUI
-- I fixed the 'nothing happens' problem
-- I added if the player clicks on a report it teleports it to the target
+- I fixed the HikariCP problem.
+- I will shadow the jar from now
+  - I started the pages in the GUI
 
 # Server Status ✅
 
