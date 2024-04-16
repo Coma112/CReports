@@ -14,6 +14,8 @@ public class MessageKeys {
     public static String ADMIN_MESSAGE = PREFIX + getString("messages.admin-message");
     public static String SUCCESSFUL_REPORT = PREFIX + getString("messages.successful-report");
     public static String OFFLINE_PLAYER = PREFIX + getString("messages.player-is-offline");
+    public static String FIRST_PAGE = PREFIX + getString("messages.first-page");
+    public static String LAST_PAGE = PREFIX + getString("messages.last-page");
 
     private static String getString(@NotNull String path) {
         return MessageProcessor.process(CReports.getInstance().getLanguage().getString(path));

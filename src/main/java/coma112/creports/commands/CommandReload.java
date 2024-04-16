@@ -7,7 +7,7 @@ import coma112.creports.subcommand.PluginCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-@CommandInfo(name = "reportsreload", requiresPlayer = false, permission = "creports.reload")
+@CommandInfo(name = "reportsreload", requiresPlayer = false, permission = "creports.admin")
 public class CommandReload extends PluginCommand {
 
     public CommandReload() {

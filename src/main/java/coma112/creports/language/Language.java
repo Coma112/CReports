@@ -21,6 +21,8 @@ public class Language extends ConfigUtils {
         yml.addDefault("messages.admin-message", "&2{sender} &areported &2{target} &a@ &2{date} &afor &2{reason}&a.");
         yml.addDefault("messages.successful-report", "&aYou have successfully reported &2{target}&a!");
         yml.addDefault("messages.player-is-offline", "&cPlayer is offline!");
+        yml.addDefault("messages.first-page", "&cYou are already on the first page!");
+        yml.addDefault("messages.last-page", "&cYou are already on the last page!");
 
         yml.options().copyDefaults(true);
         save();

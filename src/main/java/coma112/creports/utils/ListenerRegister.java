@@ -1,7 +1,7 @@
 package coma112.creports.utils;
 
 import coma112.creports.CReports;
-import coma112.creports.listeners.ReportMenuListener;
+import coma112.creports.menu.MenuListener;
 import org.bukkit.event.Listener;
 
 import java.util.HashSet;
@@ -23,7 +23,7 @@ public class ListenerRegister {
 
     private static Set<Class<? extends Listener>> getListenerClasses() {
         Set<Class<? extends Listener>> listenerClasses = new HashSet<>();
-        listenerClasses.add(ReportMenuListener.class);
+        listenerClasses.add(MenuListener.class);
         return listenerClasses;
     }
 

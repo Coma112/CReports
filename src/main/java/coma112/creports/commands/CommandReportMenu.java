@@ -2,7 +2,7 @@ package coma112.creports.commands;
 
 import coma112.creports.CReports;
 import coma112.creports.language.MessageKeys;
-import coma112.creports.menu.ReportMenu;
+import coma112.creports.menu.menus.ReportMenu;
 import coma112.creports.subcommand.CommandInfo;
 import coma112.creports.subcommand.PluginCommand;
 import org.bukkit.command.CommandSender;
@@ -23,7 +23,7 @@ public class CommandReportMenu extends PluginCommand {
             return true;
         }
 
-        ReportMenu.open(player);
+        new ReportMenu(CReports.getInstance().getMenuUtils(player)).open();
         return true;
 
     }
