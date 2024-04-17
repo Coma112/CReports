@@ -20,4 +20,3 @@ public abstract class PaginatedMenu extends Menu {
         inventory.setItem(53, ItemStorage.FORWARD);
     }
 }
-

@@ -1,5 +1,6 @@
 package coma112.creports.menu;
 
+import coma112.creports.menu.menus.ReportMenu;
 import coma112.creports.processor.MessageProcessor;
 import coma112.creports.utils.MenuUtils;
 import org.bukkit.Bukkit;
@@ -32,6 +33,8 @@ public abstract class Menu implements InventoryHolder {
         this.setMenuItems();
 
         menuUtils.getOwner().openInventory(inventory);
+        MenuUpdater menuUpdater = new MenuUpdater(this);
+        menuUpdater.start(20);
     }
 
     @Override
@@ -39,4 +42,3 @@ public abstract class Menu implements InventoryHolder {
         return inventory;
     }
 }
-

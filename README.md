@@ -4,8 +4,9 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 
 # Last commit 💯
 
-- I removed the commands from the plugin.yml because it broke the plugin
-- I added the paginated GUI (FINALLY)
+- I removed the 'THING' text from the lore from the report item by changing the item to PAPER.
+- I added that if the GUI is automatically refreshes.
+- I added to the config that you can make the report item by yourself.
 
 # Server Status ✅
 
@@ -14,8 +15,6 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 # TODO ⭕
 
 - I need to fix that if the command has not got any mentioned required permission then it's still required for some reason
-- I need to remove the 'Thing' text from the lore in the report menu
-- I still need to do some fixes in the GUI but it's already done
 
 # Sources I used 🌐
 

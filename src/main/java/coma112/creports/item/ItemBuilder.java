@@ -2,17 +2,16 @@ package coma112.creports.item;
 
 import coma112.creports.processor.MessageProcessor;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.persistence.PersistentDataType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
@@ -74,11 +73,12 @@ public class ItemBuilder implements IItemBuilder {
     }
 
     @Override
-    public ItemBuilder addLore(@NotNull String lore) {
-        List<String> lores = meta.getLore();
-        lores = lores == null ? new ArrayList<>() : lores;
-        lores.add(MessageProcessor.process(lore));
-        meta.setLore(lores);
+    public ItemBuilder addLore(@NotNull String... lores) {
+        List<String> loreList = Arrays.asList(lores);
+        List<String> currentLores = meta.getLore();
+        currentLores = currentLores == null ? new ArrayList<>() : currentLores;
+        currentLores.addAll(loreList);
+        meta.setLore(currentLores);
 
         return this;
     }

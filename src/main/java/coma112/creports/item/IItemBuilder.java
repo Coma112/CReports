@@ -46,16 +46,20 @@ public interface IItemBuilder {
         return this;
     }
 
-    ItemBuilder addLore(String lore);
+    ItemBuilder addLore(@NotNull String... lores);
 
     IItemBuilder setUnbreakable();
 
     default void addFlag(@NotNull ItemFlag... flags) {
-        Arrays.stream(flags).forEach(this::addFlag);
+        Arrays
+                .stream(flags)
+                .forEach(this::addFlag);
     }
 
     default IItemBuilder setLore(@NotNull String... lores) {
-        Arrays.stream(lores).forEach(this::addLore);
+        Arrays
+                .stream(lores)
+                .forEach(this::addLore);
         return this;
     }
 

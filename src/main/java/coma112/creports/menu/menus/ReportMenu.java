@@ -1,7 +1,9 @@
 package coma112.creports.menu.menus;
 
 import coma112.creports.CReports;
+import coma112.creports.config.ConfigKeys;
 import coma112.creports.item.IItemBuilder;
+import coma112.creports.item.ItemBuilder;
 import coma112.creports.language.MessageKeys;
 import coma112.creports.managers.Report;
 import coma112.creports.menu.PaginatedMenu;
@@ -89,6 +91,7 @@ public class ReportMenu extends PaginatedMenu {
     @Override
     public void setMenuItems() {
         List<Report> reports = CReports.getDatabaseManager().getReports();
+        inventory.clear();
         addMenuBorder();
 
         int startIndex = page * getMaxItemsPerPage();
@@ -102,15 +105,19 @@ public class ReportMenu extends PaginatedMenu {
     }
 
     private static ItemStack createReportItem(@NotNull Report report) {
-        return IItemBuilder.create(Material.MOJANG_BANNER_PATTERN)
-                .setName("&2" + report.player() + "&a's report (#" + report.id() + ")")
-                .addLore("")
-                .addLore("&bTARGET: &a" + report.target())
-                .addLore("&bREASON: &a" + report.reason())
-                .addLore("&bDATE: &a" + report.date())
-                .addLore("")
-                .addLore("&aClick if you want to teleport to the target!")
-                .setLocalizedName(report.target())
-                .finish();
+        ItemBuilder itemBuilder = IItemBuilder.create(Material.valueOf(ConfigKeys.REPORT_ITEM_MATERIAL))
+                .setName(ConfigKeys.REPORT_ITEM_NAME
+                        .replace("{player}", report.player())
+                        .replace("{id}", String.valueOf(report.id())))
+                .setLocalizedName(report.target());
+
+        for (String lore : ConfigKeys.REPORT_ITEM_LORE) {
+            itemBuilder.addLore(lore
+                    .replace("{target}", report.target())
+                    .replace("{reason}", report.reason())
+                    .replace("{date}", report.date()));
+        }
+
+        return itemBuilder.finish();
     }
 }
