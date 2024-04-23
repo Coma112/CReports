@@ -42,6 +42,7 @@ public abstract class PluginCommand extends Command {
         return run(sender, args);
     }
 
+
     public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
         return false;
     }

@@ -1,12 +1,12 @@
+![alt text](https://cdn.discordapp.com/attachments/1171500295679913997/1232432718596407346/creportslogoTR.png?ex=66296fe9&is=66281e69&hm=60a92160798257f66b1ffccd18abf61b1a865126a9a55ef3738854675d079b3d&)
+
 # Description ❓
 
 This is a Minecraft plugin coded in spigot with the Paper framework. The plugin is about the fact that a player can report other players and save this in a database where a person with appropriate rights can query them in a GUI.
 
 # Last commit 💯
 
-- I removed the 'THING' text from the lore from the report item by changing the item to PAPER.
-- I added that if the GUI is automatically refreshes.
-- I added to the config that you can make the report item by yourself.
+- I created a logo for the plugin.
 
 # Server Status ✅
 
@@ -19,4 +19,4 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 # Sources I used 🌐
 
 - ❇️ W3Schools.com
-- ❇️ spigotmc.org 
+- ❇️ spigotmc.org
