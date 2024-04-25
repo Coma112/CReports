@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-@CommandInfo(name = "reports", requiresPlayer = false, permission = "creports.admin")
+@CommandInfo(name = "reports", requiresPlayer = true, permission = "creports.admin")
 public class CommandReportMenu extends PluginCommand {
 
     public CommandReportMenu() {
@@ -17,14 +17,8 @@ public class CommandReportMenu extends PluginCommand {
     }
 
     @Override
-    public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(MessageKeys.PLAYER_REQUIRED);
-            return true;
-        }
-
+    public boolean run(@NotNull Player player, @NotNull String[] args) {
         new ReportMenu(CReports.getInstance().getMenuUtils(player)).open();
         return true;
-
     }
 }

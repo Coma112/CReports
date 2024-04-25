@@ -22,12 +22,7 @@ public class CommandReport extends PluginCommand {
     }
 
     @Override
-    public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(MessageKeys.PLAYER_REQUIRED);
-            return true;
-        }
-
+    public boolean run(@NotNull Player player, @NotNull String[] args) {
         if (args.length < 2) {
             player.sendMessage(MessageKeys.REPORT_RIGHT_USAGE);
             return true;
