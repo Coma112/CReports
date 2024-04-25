@@ -6,7 +6,7 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 
 # Last commit 💯
 
-- I created a logo for the plugin.
+- I fixed the command problem!
 
 # Server Status ✅
 
@@ -14,7 +14,7 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 
 # TODO ⭕
 
-- I need to fix that if the command has not got any mentioned required permission then it's still required for some reason
+- Everything is done YET
 
 # Sources I used 🌐
 
