@@ -68,7 +68,7 @@ public class MySQL extends DatabaseManager {
             try {
                 connection.close();
             } catch (SQLException exception) {
-                exception.printStackTrace();
+                throw new RuntimeException(exception);
             }
         }
     }
@@ -80,7 +80,7 @@ public class MySQL extends DatabaseManager {
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.execute();
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new RuntimeException(exception);
         }
     }
 
@@ -118,7 +118,7 @@ public class MySQL extends DatabaseManager {
                 reports.add(new Report(id, player, target, reason, date));
             }
         } catch (SQLException exception) {
-            exception.printStackTrace();
+            throw new RuntimeException(exception);
         }
 
         return reports;
