@@ -6,7 +6,9 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 
 # Last commit 💯
 
-- I fixed the command problem!
+- I updated the code
+- I deleted IReports because it was unnecessary
+- I changed the printstacktrace() to throw new RunTimeException()
 
 # Server Status ✅
 

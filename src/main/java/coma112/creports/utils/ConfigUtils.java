@@ -30,7 +30,7 @@ public class ConfigUtils implements IConfig {
             try {
                 if (!config.createNewFile()) return;
             } catch (IOException exception) {
-                exception.printStackTrace();
+                throw new RuntimeException(exception);
             }
         }
 
@@ -61,7 +61,7 @@ public class ConfigUtils implements IConfig {
         try {
             yml.save(config);
         } catch (IOException exception) {
-            exception.printStackTrace();
+            throw new RuntimeException(exception);
         }
     }
 

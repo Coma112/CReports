@@ -147,6 +147,4 @@ public class MySQL extends DatabaseManager {
             throw new RuntimeException("Failed to reconnect to the database", exception);
         }
     }
-
-
 }

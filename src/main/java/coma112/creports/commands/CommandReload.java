@@ -16,7 +16,6 @@ public class CommandReload extends PluginCommand {
 
     @Override
     public boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
-
         CReports.getInstance().getLanguage().reload();
         CReports.getInstance().getReportsYML().reload();
         sender.sendMessage(MessageKeys.RELOAD);

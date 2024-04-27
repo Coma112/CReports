@@ -22,7 +22,6 @@ public final class CReports extends JavaPlugin {
     @Getter private static DatabaseManager databaseManager;
     private static Language language;
     private static ReportsYML reportsYML;
-    private static MenuUtils menuUtils;
     private static final HashMap<Player, MenuUtils> menuMap = new HashMap<>();
 
     @Override
@@ -63,15 +62,16 @@ public final class CReports extends JavaPlugin {
 
     public MenuUtils getMenuUtils(@NotNull Player player) {
         MenuUtils menuUtils;
+
         if (!(menuMap.containsKey(player))) {
 
             menuUtils = new MenuUtils(player);
             menuMap.put(player, menuUtils);
 
             return menuUtils;
-        } else {
-            return menuMap.get(player);
         }
+
+        return menuMap.get(player);
     }
 
     public Language getLanguage() {

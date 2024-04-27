@@ -21,7 +21,7 @@ public class CommandRegister {
                 PluginCommand commandInstance = clazz.getDeclaredConstructor().newInstance();
                 Objects.requireNonNull(Bukkit.getCommandMap()).register(CReports.getInstance().getDescription().getName(), commandInstance);
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException exception) {
-                exception.printStackTrace();
+                throw new RuntimeException(exception);
             }
         }
     }
