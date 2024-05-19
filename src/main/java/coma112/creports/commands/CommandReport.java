@@ -73,6 +73,11 @@ public class CommandReport {
             return;
         }
 
+        if (!player.hasPermission("creports.menu") || !player.hasPermission("creports.admin")) {
+            player.sendMessage(MessageKeys.NO_PERMISSION.getMessage());
+            return;
+        }
+
         new ReportMenu(MenuUtils.getMenuUtils(player)).open();
     }
 }

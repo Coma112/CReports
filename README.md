@@ -6,9 +6,8 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 
 # Last commit 💯
 
-- I updated the code
-- I deleted IReports because it was unnecessary
-- I changed the printstacktrace() to throw new RunTimeException()
+- I made the menu customizable with permission
+- I published the 1.1 version
 
 # Server Status ✅
 
@@ -16,7 +15,7 @@ This is a Minecraft plugin coded in spigot with the Paper framework. The plugin 
 
 # TODO ⭕
 
-- Everything is done YET
+- Everything is done YET. If I get an idea I will probably code it.
 
 # Sources I used 🌐
 

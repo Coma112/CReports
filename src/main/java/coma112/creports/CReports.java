@@ -4,6 +4,7 @@ import coma112.creports.config.Config;
 import coma112.creports.database.AbstractDatabase;
 import coma112.creports.database.MySQL;
 import coma112.creports.language.Language;
+import coma112.creports.update.UpdateChecker;
 import coma112.creports.utils.CommandRegister;
 import coma112.creports.utils.ListenerRegister;
 import lombok.Getter;
@@ -12,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;
 import java.util.Objects;
 
+@SuppressWarnings("deprecation")
 public final class CReports extends JavaPlugin {
 
     @Getter private static CReports instance;
@@ -29,6 +31,14 @@ public final class CReports extends JavaPlugin {
 
         MySQL mysql = (MySQL) databaseManager;
         mysql.createTable();
+
+        new UpdateChecker(116859).getVersion(version -> {
+            if (this.getDescription().getVersion().equals(version)) {
+                getLogger().info("Everything is up to date");
+            } else {
+                getLogger().warning("You are using an outdated version! Please download the new version so that your server is always fresh! The newest version: " + version);
+            }
+        });
 
     }
 
