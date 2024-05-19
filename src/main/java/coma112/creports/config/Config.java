@@ -6,8 +6,8 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.List;
 
-public class ReportsYML extends ConfigUtils {
-    public ReportsYML() {
+public class Config extends ConfigUtils {
+    public Config() {
         super(CReports.getInstance().getDataFolder().getPath(), "config");
 
         YamlConfiguration yml = getYml();
@@ -31,6 +31,20 @@ public class ReportsYML extends ConfigUtils {
                 "",
                 "&aClick if you want to teleport to the target!"
         ));
+
+        yml.addDefault("menu.back-item.amount", 1);
+        yml.addDefault("menu.back-item.material", "RED_STAINED_GLASS");
+        yml.addDefault("menu.back-item.name", "&cBack");
+        yml.addDefault("menu.back-item.slot", 45);
+
+        yml.addDefault("menu.forward-item.amount", 1);
+        yml.addDefault("menu.forward-item.material", "GREEN_STAINED_GLASS");
+        yml.addDefault("menu.forward-item.name", "&aForward");
+        yml.addDefault("menu.forward-item.slot", 53);
+
+        yml.addDefault("menu.title", "&cREPORTS");
+        yml.addDefault("menu.size", 54);
+        yml.addDefault("menu.update-tick", 2);
 
         yml.options().copyDefaults(true);
         save();

@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public abstract class DatabaseManager {
+public abstract class AbstractDatabase {
     public abstract void createTable();
     public abstract void createReport(@NotNull OfflinePlayer player, @NotNull OfflinePlayer target, String reportText, String reportDate);
     public abstract boolean isConnected();

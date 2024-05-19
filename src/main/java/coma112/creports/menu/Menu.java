@@ -1,6 +1,6 @@
 package coma112.creports.menu;
 
-import coma112.creports.menu.menus.ReportMenu;
+import coma112.creports.enums.keys.ConfigKeys;
 import coma112.creports.processor.MessageProcessor;
 import coma112.creports.utils.MenuUtils;
 import org.bukkit.Bukkit;
@@ -9,8 +9,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
+@SuppressWarnings("deprecation")
 public abstract class Menu implements InventoryHolder {
-
     protected MenuUtils menuUtils;
     protected Inventory inventory;
 
@@ -22,11 +22,10 @@ public abstract class Menu implements InventoryHolder {
 
     public abstract int getSlots();
 
-    public abstract void handleMenu(InventoryClickEvent e);
+    public abstract void handleMenu(InventoryClickEvent event);
 
     public abstract void setMenuItems();
 
-    @SuppressWarnings("deprecation")
     public void open() {
         inventory = Bukkit.createInventory(this, getSlots(), MessageProcessor.process(getMenuName()));
 
@@ -34,11 +33,24 @@ public abstract class Menu implements InventoryHolder {
 
         menuUtils.getOwner().openInventory(inventory);
         MenuUpdater menuUpdater = new MenuUpdater(this);
-        menuUpdater.start(20);
+        menuUpdater.start(ConfigKeys.MENU_TICK.getInt() * 20);
+    }
+
+    public void updateMenuItems() {
+        if (inventory != null) {
+            setMenuItems();
+            menuUtils.getOwner().updateInventory();
+        }
     }
 
     @Override
     public @NotNull Inventory getInventory() {
         return inventory;
+    }
+
+    public void close() {
+        MenuUpdater menuUpdater = new MenuUpdater(this);
+        menuUpdater.stop();
+        inventory = null;
     }
 }

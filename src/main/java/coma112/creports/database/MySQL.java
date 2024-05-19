@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Getter
-public class MySQL extends DatabaseManager {
+public class MySQL extends AbstractDatabase {
     private final Connection connection;
 
     public MySQL(@NotNull ConfigurationSection section) throws SQLException {
@@ -142,7 +142,7 @@ public class MySQL extends DatabaseManager {
     public void reconnect(@NotNull ConfigurationSection section) {
         try {
             if (getConnection() != null && !getConnection().isClosed()) getConnection().close();
-            new MySQL(Objects.requireNonNull(CReports.getInstance().getReportsYML().getSection("database.mysql")));
+            new MySQL(Objects.requireNonNull(CReports.getInstance().getConfiguration().getSection("database.mysql")));
         } catch (SQLException exception) {
             throw new RuntimeException("Failed to reconnect to the database", exception);
         }
