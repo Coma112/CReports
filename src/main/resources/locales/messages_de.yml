@@ -1,0 +1,11 @@
+messages:
+  reload: "&e&lREPORTS &8| &aIch habe die Dateien erfolgreich neu geladen!"
+  report-right-usage: "&e&lREPORTS &8| &c/report [Spieler] [Grund]"
+  can't-report-yourself: "&e&lREPORTS &8| &cDu kannst dich nicht selbst melden!"
+  admin-message: "&e&lREPORTS &8| &2{sender} &ahat &2{target} &a@ &2{date} &awegen &2{reason}&a gemeldet."
+  successful-report: "&e&lREPORTS &8| &aDu hast &2{target}&a erfolgreich gemeldet!"
+  player-is-offline: "&e&lREPORTS &8| &cDer Spieler ist offline!"
+  first-page: "&e&lREPORTS &8| &cDu bist bereits auf der ersten Seite!"
+  last-page: "&e&lREPORTS &8| &cDu bist bereits auf der letzten Seite!"
+  dead-player: "&e&lREPORTS &8| &cSpieler ist tot!"
+  already-reported: "&e&lREPORTS &8| &cDieser Spieler wurde bereits gemeldet!"

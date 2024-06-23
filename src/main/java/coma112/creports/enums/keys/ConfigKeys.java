@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 
 public enum ConfigKeys {
     MENU_SIZE("menu.size"),
+    LANGUAGE("language"),
+    DATABASE("database.type"),
     BACK_SLOT("menu.back-item.slot"),
     FORWARD_SLOT("menu.forward-item.slot"),
     MENU_TICK("menu.update-tick"),

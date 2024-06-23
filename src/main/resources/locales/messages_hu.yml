@@ -1,0 +1,11 @@
+messages:
+  reload: "&e&lREPORTS &8| &aSikeresen újratöltötted a fájlokat!"
+  report-right-usage: "&e&lREPORTS &8| &c/report [játékos] [indok]"
+  can't-report-yourself: "&e&lREPORTS &8| &cMagadat nem jelentheted fel!"
+  admin-message: "&e&lREPORTS &8| &2{sender} &afeljelentette &2{target}-t &a@ &2{date} &a &2{reason}&a miatt."
+  successful-report: "&e&lREPORTS &8| &aSikeresen feljelentetted &2{target}&a-t!"
+  player-is-offline: "&e&lREPORTS &8| &cJátékos offline!"
+  first-page: "&e&lREPORTS &8| &cMár az első oldalon vagy!"
+  last-page: "&e&lREPORTS &8| &cMár az utolsó oldalon vagy!"
+  dead-player: "&e&lREPORTS &8| &cA játékos halott!"
+  already-reported: "&e&lREPORTS &8| &cEz a játékos már fel van jelentve!"

@@ -14,6 +14,8 @@ public enum MessageKeys {
     CANT_REPORT_YOURSELF("messages.cant-report-yourself"),
     ADMIN_MESSAGE("messages.admin-message"),
     SUCCESSFUL_REPORT("messages.successful-report"),
+    DEAD_PLAYER("messages.dead-player"),
+    ALREADY_REPORTED("messages.already-reported"),
     OFFLINE_PLAYER("messages.player-is-offline");
 
 

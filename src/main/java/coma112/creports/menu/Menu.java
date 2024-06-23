@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 @SuppressWarnings("deprecation")
 public abstract class Menu implements InventoryHolder {
+
     protected MenuUtils menuUtils;
     protected Inventory inventory;
 
@@ -22,7 +23,7 @@ public abstract class Menu implements InventoryHolder {
 
     public abstract int getSlots();
 
-    public abstract void handleMenu(InventoryClickEvent event);
+    public abstract void handleMenu(final InventoryClickEvent event);
 
     public abstract void setMenuItems();
 
@@ -43,14 +44,14 @@ public abstract class Menu implements InventoryHolder {
         }
     }
 
-    @Override
-    public @NotNull Inventory getInventory() {
-        return inventory;
-    }
-
     public void close() {
         MenuUpdater menuUpdater = new MenuUpdater(this);
         menuUpdater.stop();
         inventory = null;
+    }
+
+    @Override
+    public @NotNull Inventory getInventory() {
+        return inventory;
     }
 }

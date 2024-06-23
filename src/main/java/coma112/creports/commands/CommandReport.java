@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import revxrsal.commands.annotation.Command;
 import revxrsal.commands.annotation.Subcommand;
+import revxrsal.commands.bukkit.annotation.CommandPermission;
 
 import java.text.SimpleDateFormat;
 import java.util.Objects;
@@ -18,13 +19,9 @@ import java.util.Objects;
 @Command({"report", "creports"})
 public class CommandReport {
 
-    @Subcommand("newReport")
-    public void newReport(CommandSender sender, OfflinePlayer target, @NotNull String reason) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(MessageKeys.PLAYER_REQUIRED.getMessage());
-            return;
-        }
-
+    @Subcommand("new")
+    @CommandPermission("creports.use")
+    public void newReport(@NotNull Player player, OfflinePlayer target, @NotNull String reason) {
         if (!target.isOnline()) {
             player.sendMessage(MessageKeys.OFFLINE_PLAYER.getMessage());
             return;
@@ -32,6 +29,11 @@ public class CommandReport {
 
         if (target == player) {
             player.sendMessage(MessageKeys.CANT_REPORT_YOURSELF.getMessage());
+            return;
+        }
+
+        if (CReports.getDatabaseManager().alreadyReported(target)) {
+            player.sendMessage(MessageKeys.ALREADY_REPORTED.getMessage());
             return;
         }
 
@@ -55,29 +57,17 @@ public class CommandReport {
     }
 
     @Subcommand("reload")
-    public void reload(CommandSender sender) {
-        if (!sender.hasPermission("creports.reload") || !sender.hasPermission("creports.admin")) {
-            sender.sendMessage(MessageKeys.NO_PERMISSION.getMessage());
-            return;
-        }
-
+    @CommandPermission("creports.reload")
+    public void reload(@NotNull CommandSender sender) {
         CReports.getInstance().getLanguage().reload();
         CReports.getInstance().getConfiguration().reload();
-        CReports.getDatabaseManager().reconnect(Objects.requireNonNull(CReports.getInstance().getConfiguration().getSection("database.mysql")));
+        CReports.getDatabaseManager().reconnect();
+        sender.sendMessage(MessageKeys.RELOAD.getMessage());
     }
 
     @Subcommand("menu")
-    public void menu(CommandSender sender) {
-        if (!(sender instanceof Player player)) {
-            sender.sendMessage(MessageKeys.PLAYER_REQUIRED.getMessage());
-            return;
-        }
-
-        if (!player.hasPermission("creports.menu") || !player.hasPermission("creports.admin")) {
-            player.sendMessage(MessageKeys.NO_PERMISSION.getMessage());
-            return;
-        }
-
+    @CommandPermission("creports.menu")
+    public void menu(@NotNull Player player) {
         new ReportMenu(MenuUtils.getMenuUtils(player)).open();
     }
 }

@@ -1,13 +1,15 @@
 package coma112.creports.utils;
 
 import coma112.creports.CReports;
+import coma112.creports.commands.CommandReport;
 import coma112.creports.menu.MenuListener;
 import org.bukkit.event.Listener;
+import revxrsal.commands.bukkit.BukkitCommandHandler;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class ListenerRegister {
+public class RegisterUtils {
     @SuppressWarnings("deprecation")
     public static void registerEvents() {
         Set<Class<? extends Listener>> listenerClasses = getListenerClasses();
@@ -21,10 +23,14 @@ public class ListenerRegister {
         }
     }
 
+    public static void registerCommands() {
+        BukkitCommandHandler handler = BukkitCommandHandler.create(CReports.getInstance());
+        handler.register(new CommandReport());
+    }
+
     private static Set<Class<? extends Listener>> getListenerClasses() {
         Set<Class<? extends Listener>> listenerClasses = new HashSet<>();
         listenerClasses.add(MenuListener.class);
         return listenerClasses;
     }
-
 }

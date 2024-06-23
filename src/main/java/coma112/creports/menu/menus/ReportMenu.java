@@ -1,26 +1,27 @@
 package coma112.creports.menu.menus;
 
 import coma112.creports.CReports;
+import coma112.creports.database.AbstractDatabase;
 import coma112.creports.enums.keys.ConfigKeys;
 import coma112.creports.enums.keys.MessageKeys;
 import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
 import coma112.creports.menu.PaginatedMenu;
-import coma112.creports.storage.ItemStorage;
 import coma112.creports.utils.MenuUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.ObjectInputFilter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @SuppressWarnings("deprecation")
-public class ReportMenu extends PaginatedMenu {
+public class ReportMenu extends PaginatedMenu implements Listener {
 
     public ReportMenu(MenuUtils menuUtils) {
         super(menuUtils);
@@ -34,6 +35,82 @@ public class ReportMenu extends PaginatedMenu {
     @Override
     public int getSlots() {
         return ConfigKeys.MENU_SIZE.getInt();
+    }
+
+    @Override
+    public void setMenuItems() {
+        AbstractDatabase database = CReports.getDatabaseManager();
+        List<Report> reports = database.getReports();
+        inventory.clear();
+        addMenuBorder();
+
+        int startIndex = page * getMaxItemsPerPage();
+        int endIndex = Math.min(startIndex + getMaxItemsPerPage(), reports.size());
+
+        for (int i = startIndex; i < endIndex; i++) {
+            Report report = reports.get(i);
+
+            if (database.getClaimer(report) == null || database.getClaimer(report).isEmpty()) inventory.addItem(createReportItem(reports.get(i)));
+        }
+    }
+
+    @Override
+    public void handleMenu(final InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player player)) return;
+        if (!event.getInventory().equals(inventory)) return;
+
+        event.setCancelled(true);
+
+        AbstractDatabase database = CReports.getDatabaseManager();
+        List<Report> reports = database.getReports();
+        int clickedIndex = event.getSlot();
+
+        if (clickedIndex == ConfigKeys.FORWARD_SLOT.getInt()) {
+            int nextPageIndex = page + 1;
+            int totalPages = (int) Math.ceil((double) reports.size() / getMaxItemsPerPage());
+
+            if (nextPageIndex >= totalPages) {
+                player.sendMessage(MessageKeys.LAST_PAGE.getMessage());
+                return;
+            } else {
+                page++;
+                super.open();
+            }
+        }
+
+        if (clickedIndex == ConfigKeys.BACK_SLOT.getInt()) {
+            if (page == 0) {
+                player.sendMessage(MessageKeys.FIRST_PAGE.getMessage());
+                return;
+            } else {
+                page--;
+                super.open();
+            }
+        }
+
+        if (clickedIndex >= 0 && clickedIndex < reports.size()) {
+            Report selectedReport = reports.get(clickedIndex);
+            Player target = player.getServer().getPlayerExact(selectedReport.target());
+
+            if (target == null) {
+                player.sendMessage(MessageKeys.OFFLINE_PLAYER.getMessage());
+                return;
+            }
+
+            if (target.isDead()) {
+                player.sendMessage(MessageKeys.DEAD_PLAYER.getMessage());
+                return;
+            }
+
+            player.teleport(target.getLocation());
+            database.claimReport(player, selectedReport);
+            inventory.close();
+        }
+    }
+
+    @EventHandler
+    public void onClose(InventoryCloseEvent event) {
+        if (event.getInventory().equals(inventory)) close();
     }
 
     private static ItemStack createReportItem(@NotNull Report report) {
@@ -62,74 +139,5 @@ public class ReportMenu extends PaginatedMenu {
 
         itemStack.setItemMeta(meta);
         return itemStack;
-    }
-
-    @Override
-    public void setMenuItems() {
-        List<Report> reports = CReports.getDatabaseManager().getReports();
-        inventory.clear();
-        addMenuBorder();
-
-        int startIndex = page * getMaxItemsPerPage();
-        int endIndex = Math.min(startIndex + getMaxItemsPerPage(), reports.size());
-
-        for (int i = startIndex; i < endIndex; i++) {
-            Report report = reports.get(i);
-            ItemStack item = createReportItem(report);
-            inventory.addItem(item);
-        }
-    }
-
-    @Override
-    public void handleMenu(InventoryClickEvent event) {
-        Player player = (Player) event.getWhoClicked();
-        List<Report> reports = CReports.getDatabaseManager().getReports();
-
-        if (Objects.equals(event.getCurrentItem(), ItemStorage.BACK)) {
-            if (page == 0) {
-                player.sendMessage(MessageKeys.FIRST_PAGE.getMessage());
-            } else {
-                page--;
-                super.open();
-            }
-
-            return;
-        }
-
-        if (Objects.equals(event.getCurrentItem(), ItemStorage.FORWARD)) {
-            int nextPageIndex = page + 1;
-            int totalPages = (int) Math.ceil((double) reports.size() / getMaxItemsPerPage());
-
-            if (nextPageIndex >= totalPages) {
-                player.sendMessage(MessageKeys.LAST_PAGE.getMessage());
-            } else {
-                page++;
-                super.open();
-            }
-
-            return;
-        }
-
-        String targetName = Objects.requireNonNull(event.getCurrentItem()).getItemMeta().getLocalizedName();
-        Player target = player.getServer().getPlayerExact(targetName);
-
-        if (target == null) {
-            player.sendMessage(MessageKeys.OFFLINE_PLAYER.getMessage());
-            return;
-        }
-
-        player.teleport(target.getLocation());
-        inventory.close();
-
-        Report reportToRemove = null;
-
-        for (Report report : reports) {
-            if (report.target().equals(targetName)) {
-                reportToRemove = report;
-                break;
-            }
-        }
-
-        if (reportToRemove != null) CReports.getDatabaseManager().removeReport(reportToRemove);
     }
 }

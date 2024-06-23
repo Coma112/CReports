@@ -1,62 +1,27 @@
 package coma112.creports.database;
 
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 import coma112.creports.CReports;
 import coma112.creports.managers.Report;
 import coma112.creports.utils.ReportLogger;
 import lombok.Getter;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.File;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
 @Getter
-public class MySQL extends AbstractDatabase {
+public class SQLite extends AbstractDatabase {
     private final Connection connection;
 
-    public MySQL(@NotNull ConfigurationSection section) throws SQLException {
-        HikariConfig hikariConfig = new HikariConfig();
-
-        String host = section.getString("host");
-        String database = section.getString("database");
-        String user = section.getString("username");
-        String pass = section.getString("password");
-        int port = section.getInt("port");
-        boolean ssl = section.getBoolean("ssl");
-        boolean certificateVerification = section.getBoolean("certificateverification");
-        int poolSize = section.getInt("poolsize");
-        int maxLifetime = section.getInt("lifetime");
-
-        hikariConfig.setPoolName("ReportsPool");
-        hikariConfig.setMaximumPoolSize(poolSize);
-        hikariConfig.setMaxLifetime(maxLifetime * 1000L);
-        hikariConfig.setJdbcUrl("jdbc:mysql://" + host + ":" + port + "/" + database);
-        hikariConfig.setUsername(user);
-        hikariConfig.setPassword(pass);
-        hikariConfig.addDataSourceProperty("useSSL", String.valueOf(ssl));
-        if (!certificateVerification)
-            hikariConfig.addDataSourceProperty("verifyServerCertificate", String.valueOf(false));
-        hikariConfig.addDataSourceProperty("cachePrepStmts", "true");
-        hikariConfig.addDataSourceProperty("encoding", "UTF-8");
-        hikariConfig.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
-        hikariConfig.addDataSourceProperty("jdbcCompliantTruncation", "false");
-        hikariConfig.addDataSourceProperty("characterEncoding", "utf8");
-        hikariConfig.addDataSourceProperty("rewriteBatchedStatements", "true");
-        hikariConfig.addDataSourceProperty("socketTimeout", String.valueOf(TimeUnit.SECONDS.toMillis(30)));
-        hikariConfig.addDataSourceProperty("prepStmtCacheSize", "275");
-        hikariConfig.addDataSourceProperty("useUnicode", "true");
-        HikariDataSource dataSource = new HikariDataSource(hikariConfig);
-        connection = dataSource.getConnection();
+    public SQLite() throws SQLException, ClassNotFoundException {
+        Class.forName("org.sqlite.JDBC");
+        File dataFolder = new File(CReports.getInstance().getDataFolder(), "reports.db");
+        String url = "jdbc:sqlite:" + dataFolder;
+        connection = DriverManager.getConnection(url);
     }
 
     @Override
@@ -76,7 +41,7 @@ public class MySQL extends AbstractDatabase {
     }
 
     public void createTable() {
-        String query = "CREATE TABLE IF NOT EXISTS reports (ID INT AUTO_INCREMENT PRIMARY KEY, PLAYER VARCHAR(255) NOT NULL, TARGET VARCHAR(255) NOT NULL, REPORT_TEXT VARCHAR(255) NOT NULL, REPORT_DATE VARCHAR(255) NOT NULL, CLAIMER VARCHAR(255))";
+        String query = "CREATE TABLE IF NOT EXISTS reports (ID INTEGER AUTO_INCREMENT PRIMARY KEY, PLAYER VARCHAR(255) NOT NULL, TARGET VARCHAR(255) NOT NULL, REPORT_TEXT VARCHAR(255) NOT NULL, REPORT_DATE VARCHAR(255) NOT NULL, CLAIMER VARCHAR(255))";
 
         try (PreparedStatement preparedStatement = getConnection().prepareStatement(query)) {
             preparedStatement.execute();
@@ -126,23 +91,6 @@ public class MySQL extends AbstractDatabase {
     }
 
     @Override
-    public boolean alreadyReported(@NotNull OfflinePlayer player) {
-        String query = "SELECT COUNT(*) AS count FROM reports WHERE TARGET = ? AND CLAIMER IS NULL";
-
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, player.getName());
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) return resultSet.getInt("count") > 0;
-        } catch (SQLException exception) {
-            ReportLogger.error(exception.getMessage());
-        }
-
-        return false;
-    }
-
-    @Override
     public void claimReport(@NotNull Player player, @NotNull Report report) {
         String query = "UPDATE reports SET CLAIMER = ? WHERE ID = ?";
 
@@ -175,11 +123,28 @@ public class MySQL extends AbstractDatabase {
     }
 
     @Override
+    public boolean alreadyReported(@NotNull OfflinePlayer player) {
+        String query = "SELECT COUNT(*) AS count FROM reports WHERE TARGET = ? AND CLAIMER IS NULL";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, player.getName());
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) return resultSet.getInt("count") > 0;
+        } catch (SQLException exception) {
+            ReportLogger.error(exception.getMessage());
+        }
+
+        return false;
+    }
+
+    @Override
     public void reconnect() {
         try {
             if (getConnection() != null && !getConnection().isClosed()) getConnection().close();
-            new MySQL(Objects.requireNonNull(CReports.getInstance().getConfiguration().getSection("database.mysql")));
-        } catch (SQLException exception) {
+            new SQLite();
+        } catch (SQLException | ClassNotFoundException exception) {
             ReportLogger.error(exception.getMessage());
         }
     }

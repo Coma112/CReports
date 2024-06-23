@@ -1,0 +1,11 @@
+messages:
+  reload: "&e&lREPORTS &8| &aI have successfully reloaded the files!"
+  report-right-usage: "&e&lREPORTS &8| &c/report [player] [reason]"
+  can't-report-yourself: "&e&lREPORTS &8| &cYou can't report yourself!"
+  admin-message: "&e&lREPORTS &8| &2{sender} &areported &2{target} &a@ &2{date} &afor &2{reason}&a."
+  successful-report: "&e&lREPORTS &8| &aYou have successfully reported &2{target}&a!"
+  player-is-offline: "&e&lREPORTS &8| &cPlayer is offline!"
+  first-page: "&e&lREPORTS &8| &cYou are already on the first page!"
+  last-page: "&e&lREPORTS &8| &cYou are already on the last page!"
+  dead-player: "&e&lREPORTS &8| &cPlayer is dead!"
+  already-reported: "&e&lREPORTS &8| &cThis player is already reported!"
