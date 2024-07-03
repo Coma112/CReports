@@ -73,7 +73,8 @@ public class StartingUtils {
 
             ReportLogger.info("Found everything moving onto VersionSupport...");
             support = new VersionSupport(CReports.getInstance(), MinecraftVersion.getCurrentVersion());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException exception) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException exception) {
             ReportLogger.error(exception.getMessage());
             isSupported = false;
             return;
@@ -83,17 +84,16 @@ public class StartingUtils {
         isSupported = true;
     }
 
-
     public static void checkUpdates() {
-        new UpdateChecker(116859).getVersion(version -> {
+        new UpdateChecker(117713).getVersion(version -> {
             ReportLogger.info(CReports.getInstance().getDescription().getVersion().equals(version) ? "Everything is up to date" : "You are using an outdated version! Please download the new version so that your server is always fresh! The newest version: " + version);
         });
     }
 
     public static void saveResourceIfNotExists(@NotNull String resourcePath) {
-        if (!new File(CReports.getInstance().getDataFolder(), resourcePath).exists()) CReports.getInstance().saveResource(resourcePath, false);
+        if (!new File(CReports.getInstance().getDataFolder(), resourcePath).exists())
+            CReports.getInstance().saveResource(resourcePath, false);
     }
-
 
     static int getVMVersion() {
         String javaVersion = System.getProperty("java.version");

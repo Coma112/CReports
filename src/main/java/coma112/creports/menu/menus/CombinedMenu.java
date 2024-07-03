@@ -8,6 +8,7 @@ import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
 import coma112.creports.menu.PaginatedMenu;
 import coma112.creports.utils.MenuUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,20 +22,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("deprecation")
-public class ReportMenu extends PaginatedMenu implements Listener {
+public class CombinedMenu extends PaginatedMenu implements Listener{
 
-    public ReportMenu(MenuUtils menuUtils) {
+    public CombinedMenu(MenuUtils menuUtils) {
         super(menuUtils);
     }
 
     @Override
+    public void addMenuBorder() {
+        inventory.setItem(ConfigKeys.COMBINED_BACK_SLOT.getInt(), IItemBuilder.createItemFromSection("unclaimed-menu.back-item"));
+        inventory.setItem(ConfigKeys.COMBINED_FORWARD_SLOT.getInt(), IItemBuilder.createItemFromSection("unclaimed-menu.forward-item"));
+    }
+
+    @Override
     public String getMenuName() {
-        return ConfigKeys.MENU_TITLE.getString();
+        return ConfigKeys.COMBINED_MENU_TITLE.getString();
     }
 
     @Override
     public int getSlots() {
-        return ConfigKeys.MENU_SIZE.getInt();
+        return ConfigKeys.COMBINED_MENU_SIZE.getInt();
+    }
+
+    @Override
+    public int getMaxItemsPerPage() {
+        return ConfigKeys.COMBINED_MENU_SIZE.getInt() - 2;
+    }
+
+    @Override
+    public int getMenuTick() {
+        return ConfigKeys.COMBINED_MENU_TICK.getInt();
+    }
+
+    @Override
+    public boolean enableFillerGlass() {
+        return false;
     }
 
     @Override
@@ -47,11 +69,7 @@ public class ReportMenu extends PaginatedMenu implements Listener {
         int startIndex = page * getMaxItemsPerPage();
         int endIndex = Math.min(startIndex + getMaxItemsPerPage(), reports.size());
 
-        for (int i = startIndex; i < endIndex; i++) {
-            Report report = reports.get(i);
-
-            if (database.getClaimer(report) == null || database.getClaimer(report).isEmpty()) inventory.addItem(createReportItem(reports.get(i)));
-        }
+        for (int i = startIndex; i < endIndex; i++) inventory.addItem(createReportItem(reports.get(i)));
     }
 
     @Override
@@ -65,7 +83,7 @@ public class ReportMenu extends PaginatedMenu implements Listener {
         List<Report> reports = database.getReports();
         int clickedIndex = event.getSlot();
 
-        if (clickedIndex == ConfigKeys.FORWARD_SLOT.getInt()) {
+        if (clickedIndex == ConfigKeys.COMBINED_FORWARD_SLOT.getInt()) {
             int nextPageIndex = page + 1;
             int totalPages = (int) Math.ceil((double) reports.size() / getMaxItemsPerPage());
 
@@ -78,40 +96,21 @@ public class ReportMenu extends PaginatedMenu implements Listener {
             }
         }
 
-        if (clickedIndex == ConfigKeys.BACK_SLOT.getInt()) {
+        if (clickedIndex == ConfigKeys.COMBINED_BACK_SLOT.getInt()) {
             if (page == 0) {
                 player.sendMessage(MessageKeys.FIRST_PAGE.getMessage());
-                return;
             } else {
                 page--;
                 super.open();
             }
         }
-
-        if (clickedIndex >= 0 && clickedIndex < reports.size()) {
-            Report selectedReport = reports.get(clickedIndex);
-            Player target = player.getServer().getPlayerExact(selectedReport.target());
-
-            if (target == null) {
-                player.sendMessage(MessageKeys.OFFLINE_PLAYER.getMessage());
-                return;
-            }
-
-            if (target.isDead()) {
-                player.sendMessage(MessageKeys.DEAD_PLAYER.getMessage());
-                return;
-            }
-
-            player.teleport(target.getLocation());
-            database.claimReport(player, selectedReport);
-            inventory.close();
-        }
     }
 
     @EventHandler
-    public void onClose(InventoryCloseEvent event) {
+    public void onClose(final InventoryCloseEvent event) {
         if (event.getInventory().equals(inventory)) close();
     }
+
 
     private static ItemStack createReportItem(@NotNull Report report) {
         ItemStack itemStack = IItemBuilder.createItemFromSection("report-item");

@@ -2,3 +2,8 @@ name: CReports
 version: '1.0.1'
 main: coma112.creports.CReports
 api-version: '1.18'
+authors:
+  - Coma112
+  - Vulcan Studio
+depend:
+  - PlaceholderAPI

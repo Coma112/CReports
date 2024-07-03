@@ -10,10 +10,12 @@ import com.mongodb.client.model.FindOneAndUpdateOptions;
 import com.mongodb.client.model.ReturnDocument;
 import com.mongodb.client.model.Updates;
 import coma112.creports.CReports;
+import coma112.creports.events.ReportClaimedEvent;
+import coma112.creports.events.ReportCreatedEvent;
 import coma112.creports.managers.Report;
-import coma112.creports.utils.ReportLogger;
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -57,9 +59,7 @@ public class MongoDB extends AbstractDatabase {
     }
 
     public void initializeCounter() {
-        if (counterCollection.find(eq("_id", "reportId")).first() == null) {
-            counterCollection.insertOne(new Document("_id", "reportId").append("seq", 0));
-        }
+        if (counterCollection.find(eq("_id", "reportId")).first() == null) counterCollection.insertOne(new Document("_id", "reportId").append("seq", 0));
     }
 
     public void createCollection() {
@@ -89,6 +89,7 @@ public class MongoDB extends AbstractDatabase {
                 .append("CLAIMER", null);
 
         reportCollection.insertOne(report);
+        CReports.getInstance().getServer().getPluginManager().callEvent(new ReportCreatedEvent(player, target, reportText, reportDate));
     }
 
     @Override
@@ -110,6 +111,7 @@ public class MongoDB extends AbstractDatabase {
     @Override
     public void claimReport(@NotNull Player player, @NotNull Report report) {
         reportCollection.updateOne(eq("ID", report.id()), Updates.set("CLAIMER", player.getName()));
+        CReports.getInstance().getServer().getPluginManager().callEvent(new ReportClaimedEvent(Bukkit.getPlayerExact(report.player()), Objects.requireNonNull(Bukkit.getPlayerExact(report.target())), player));
     }
 
     @Override
@@ -120,11 +122,25 @@ public class MongoDB extends AbstractDatabase {
     }
 
     @Override
+    public String getPlayer(@NotNull Report report) {
+        Document result = reportCollection.find(eq("ID", report.id())).first();
+        if (result != null) return result.getString("PLAYER");
+        return "";
+    }
+
+    @Override
     public boolean alreadyReported(@NotNull OfflinePlayer player) {
         Document query = new Document("TARGET", player.getName())
                 .append("CLAIMER", null);
         long count = reportCollection.countDocuments(query);
         return count > 0;
+    }
+
+    @Override
+    public int getClaimedReports(@NotNull OfflinePlayer player) {
+        Document query = new Document("CLAIMER", player.getName());
+        long count = reportCollection.countDocuments(query);
+        return (int) count;
     }
 
     @Override

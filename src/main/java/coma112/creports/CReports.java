@@ -10,9 +10,8 @@ import coma112.creports.database.SQLite;
 import coma112.creports.enums.DatabaseType;
 import coma112.creports.enums.LanguageType;
 import coma112.creports.enums.keys.ConfigKeys;
+import coma112.creports.hooks.PlaceholderAPI;
 import coma112.creports.language.Language;
-import coma112.creports.update.UpdateChecker;
-import coma112.creports.utils.RegisterUtils;
 import coma112.creports.utils.ReportLogger;
 import coma112.creports.utils.StartingUtils;
 import lombok.Getter;
@@ -25,7 +24,6 @@ import java.util.Objects;
 import static coma112.creports.utils.StartingUtils.registerListenersAndCommands;
 import static coma112.creports.utils.StartingUtils.saveResourceIfNotExists;
 
-@SuppressWarnings("deprecation")
 public final class CReports extends JavaPlugin {
 
     @Getter private static CReports instance;
@@ -52,7 +50,9 @@ public final class CReports extends JavaPlugin {
         registerListenersAndCommands();
         initializeDatabaseManager();
 
+        PlaceholderAPI.registerHook();
         StartingUtils.checkUpdates();
+
         new Metrics(this, 22367);
     }
 

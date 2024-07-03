@@ -1,7 +1,8 @@
 language: "en" # Supported languages -> hu, de, en
+dateformat: "yyyy-MM-dd HH:mm:ss" # The dateformat to use in the reports. I think this is the most precise.
 
 database:
-  type: "mysql" # Supported types -> mysql, sqlite, mongodb
+  type: "sqlite" # Supported types -> mysql, sqlite, mongodb
   mysql:
     host: localhost
     port: 3306
@@ -26,14 +27,18 @@ report-item:
   name: "&2{player}&a's report (#{id})"
   lore:
     - ""
-    - "&bTARGET: &a{target}"
-    - "&bREASON: &a{reason}"
-    - "&bDATE: &a{date}"
+    - "&eTARGET: &a{target}"
+    - "&eREASON: &a{reason}"
+    - "&eDATE: &a{date}"
     - ""
     - "&aClick if you want to teleport to the target!"
+filler-glass-item:
+  material: GRAY_STAINED_GLASS_PANE
+  name: " "
+  lore: []
 
 # Menu Configuration
-menu:
+claimed-menu:
   back-item:
     amount: 1
     material: RED_STAINED_GLASS
@@ -44,7 +49,89 @@ menu:
     material: GREEN_STAINED_GLASS
     name: "&aForward"
     slot: 53
-  title: "&cREPORTS"
+  title: "&eCLAIMED REPORTS"
   size: 54
   update-tick: 2
 
+unclaimed-menu:
+  back-item:
+    amount: 1
+    material: RED_STAINED_GLASS
+    name: "&cBack"
+    slot: 45
+  forward-item:
+    amount: 1
+    material: GREEN_STAINED_GLASS
+    name: "&aForward"
+    slot: 53
+  title: "&e&lUNCLAIMED REPORTS"
+  size: 54
+  update-tick: 2
+
+combined-menu:
+  back-item:
+    amount: 1
+    material: RED_STAINED_GLASS
+    name: "&cBack"
+    slot: 45
+  forward-item:
+    amount: 1
+    material: GREEN_STAINED_GLASS
+    name: "&aForward"
+    slot: 53
+  title: "&e&lREPORTS"
+  size: 54
+  update-tick: 2
+
+main-menu:
+  claimed-menu-item:
+    amount: 1
+    material: GREEN_CONCRETE
+    name: "&aClaimed Reports"
+    slot: 6
+  combined-menu-item:
+    amount: 1
+    material: YELLOW_CONCRETE
+    name: "&eALL"
+    slot: 4
+  unclaimed-menu-item:
+    amount: 1
+    material: RED_CONCRETE
+    name: "&cUnclaimed Reports"
+    slot: 2
+  title: "&e&lMAIN MENU"
+  size: 9
+  filler-glass: true
+
+
+# Webhook
+# webhook.enabled -> You can enable and disable the webhook feature
+# webhook.url -> Discord Webhook URL
+
+webhook:
+  report-claim-embed:
+    enabled: false
+    url: "WEBHOOK URL HERE!!!"
+    title: "REPORT CLAIMED"
+    description: "**{staff}** claimed **{player}**'s report. Target: **{target}**"
+    color: "YELLOW"
+    author-name: ""
+    author-url: ""
+    author-icon: ""
+    footer-text: "SENT BY CREPORTS"
+    footer-icon: ""
+    thumbnail: ""
+    image: ""
+  report-created-embed:
+    enabled: false
+    url: "WEBHOOK URL HERE!!!"
+    title: "REPORT CREATED"
+    description: "**{player}** reported **{target}** @ **{date}** for **{reason}**"
+    color: "YELLOW"
+    author-name: ""
+    author-url: ""
+    author-icon: ""
+    footer-text: "SENT BY CREPORTS"
+    footer-icon: ""
+    thumbnail: ""
+    image: ""

@@ -20,5 +20,9 @@ public abstract class AbstractDatabase {
 
     public abstract String getClaimer(@NotNull Report report);
 
+    public abstract String getPlayer(@NotNull Report report);
+
+    public abstract int getClaimedReports(@NotNull OfflinePlayer player);
+
     public abstract void reconnect();
 }

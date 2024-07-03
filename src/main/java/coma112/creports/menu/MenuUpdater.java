@@ -6,8 +6,8 @@ import coma112.creports.CReports;
 @SuppressWarnings("deprecation")
 public class MenuUpdater {
     private final Menu menu;
-    private boolean running = true;
     private MyScheduledTask task;
+    private boolean running = true;
 
     public MenuUpdater(Menu menu) {
         this.menu = menu;

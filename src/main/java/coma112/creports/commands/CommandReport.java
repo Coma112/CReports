@@ -1,8 +1,10 @@
 package coma112.creports.commands;
 
 import coma112.creports.CReports;
+import coma112.creports.enums.keys.ConfigKeys;
 import coma112.creports.enums.keys.MessageKeys;
-import coma112.creports.menu.menus.ReportMenu;
+import coma112.creports.menu.menus.MainMenu;
+import coma112.creports.menu.menus.UnclaimedMenu;
 import coma112.creports.utils.MenuUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -37,7 +39,7 @@ public class CommandReport {
             return;
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat(ConfigKeys.DATEFORMAT.getString());
         String formattedDateTime = dateFormat.format(new java.util.Date());
 
         Bukkit.getOnlinePlayers().forEach(onlinePlayers -> {
@@ -68,6 +70,6 @@ public class CommandReport {
     @Subcommand("menu")
     @CommandPermission("creports.menu")
     public void menu(@NotNull Player player) {
-        new ReportMenu(MenuUtils.getMenuUtils(player)).open();
+        new MainMenu(MenuUtils.getMenuUtils(player)).open();
     }
 }
