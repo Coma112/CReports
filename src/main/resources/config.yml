@@ -2,7 +2,7 @@ language: "en" # Supported languages -> hu, de, en
 dateformat: "yyyy-MM-dd HH:mm:ss" # The dateformat to use in the reports. I think this is the most precise.
 
 database:
-  type: "sqlite" # Supported types -> mysql, sqlite, mongodb
+  type: "sqlite" # Supported types -> mysql, sqlite
   mysql:
     host: localhost
     port: 3306

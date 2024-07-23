@@ -4,7 +4,6 @@ import com.github.Anon8281.universalScheduler.UniversalScheduler;
 import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import coma112.creports.config.Config;
 import coma112.creports.database.AbstractDatabase;
-import coma112.creports.database.MongoDB;
 import coma112.creports.database.MySQL;
 import coma112.creports.database.SQLite;
 import coma112.creports.enums.DatabaseType;
@@ -90,13 +89,6 @@ public final class CReports extends JavaPlugin {
                     databaseManager = new MySQL(Objects.requireNonNull(getConfiguration().getSection("database.mysql")));
                     MySQL mySQL = (MySQL) databaseManager;
                     mySQL.createTable();
-                }
-
-                case MONGODB, mongodb -> {
-                    databaseManager = new MongoDB(Objects.requireNonNull(getConfiguration().getSection("database.mongodb")));
-                    MongoDB mongoDB = (MongoDB) databaseManager;
-                    mongoDB.createCollection();
-                    mongoDB.initializeCounter();
                 }
 
                 case SQLITE, sqlite -> {

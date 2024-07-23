@@ -20,18 +20,20 @@ public class RegisterUtils {
             try {
                 CReports.getInstance().getServer().getPluginManager().registerEvents(clazz.newInstance(), CReports.getInstance());
             } catch (InstantiationException | IllegalAccessException exception) {
-                throw new RuntimeException(exception);
+                ReportLogger.error(exception.getMessage());
             }
         }
     }
 
     public static void registerCommands() {
         BukkitCommandHandler handler = BukkitCommandHandler.create(CReports.getInstance());
+
         handler.register(new CommandReport());
     }
 
     private static Set<Class<? extends Listener>> getListenerClasses() {
         Set<Class<? extends Listener>> listenerClasses = new HashSet<>();
+
         listenerClasses.add(MenuListener.class);
         listenerClasses.add(ReportClaimedListener.class);
         listenerClasses.add(ReportCreatedListener.class);

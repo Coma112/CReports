@@ -1,4 +1,14 @@
 messages:
+  help:
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
+    - "&e/creports reload &f- &7Újratölti a plugint."
+    - "&e/creports new &7(&ecélpont&7) &7(&eok&7) &f- &7Jelentést küld a célpontról."
+    - "&e/creports menu &f- &7Megnyitja a jelentési menüt."
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
   reload: "&e&lREPORTS &8| &aSikeresen újratöltötted a fájlokat!"
   report-right-usage: "&e&lREPORTS &8| &c/report [játékos] [indok]"
   can't-report-yourself: "&e&lREPORTS &8| &cMagadat nem jelentheted fel!"

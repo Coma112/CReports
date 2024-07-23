@@ -4,6 +4,8 @@ import coma112.creports.CReports;
 import coma112.creports.processor.MessageProcessor;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public enum MessageKeys {
     NO_PERMISSION("messages.no-permission"),
     RELOAD("messages.reload"),
@@ -16,6 +18,7 @@ public enum MessageKeys {
     SUCCESSFUL_REPORT("messages.successful-report"),
     DEAD_PLAYER("messages.dead-player"),
     ALREADY_REPORTED("messages.already-reported"),
+    HELP("messages.help"),
     OFFLINE_PLAYER("messages.player-is-offline");
 
 
@@ -29,4 +32,10 @@ public enum MessageKeys {
         return MessageProcessor.process(CReports.getInstance().getLanguage().getString(path));
     }
 
+    public List<String> getMessages() {
+        return CReports.getInstance().getLanguage().getList(path)
+                .stream()
+                .map(MessageProcessor::process)
+                .toList();
+    }
 }

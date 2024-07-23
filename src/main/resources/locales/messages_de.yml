@@ -1,4 +1,14 @@
 messages:
+  help:
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
+    - "&e/creports reload &f- &7Lädt das Plugin neu."
+    - "&e/creports new &7(&eZiel&7) &7(&eGrund&7) &f- &7Meldet das Ziel."
+    - "&e/creports menu &f- &7Öffnet das Bericht-Menü."
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
   reload: "&e&lREPORTS &8| &aIch habe die Dateien erfolgreich neu geladen!"
   report-right-usage: "&e&lREPORTS &8| &c/report [Spieler] [Grund]"
   can't-report-yourself: "&e&lREPORTS &8| &cDu kannst dich nicht selbst melden!"

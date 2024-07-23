@@ -1,4 +1,4 @@
-package coma112.creports.version.nms.v1_18_R2;
+package coma112.creports.version.nms.v1_20_R6;
 
 import coma112.creports.utils.ReportLogger;
 import coma112.creports.version.ServerVersionSupport;
@@ -10,13 +10,13 @@ public class Version implements ServerVersionSupport {
 
     @Contract(pure = true)
     public Version(@NotNull Plugin plugin) {
-        ReportLogger.info("Loading support for version 1.18.2...");
-        ReportLogger.info("Support for 1.18.2 is loaded!");
+        ReportLogger.info("Loading support for version 1.20.6...");
+        ReportLogger.info("Support for 1.20.6 is loaded!");
     }
 
     @Override
     public String getName() {
-        return "1.18_R2";
+        return "1.20_R6";
     }
 
     @Override

@@ -2,7 +2,6 @@ package coma112.creports.database;
 
 import coma112.creports.managers.Report;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 

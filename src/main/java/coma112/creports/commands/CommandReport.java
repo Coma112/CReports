@@ -4,7 +4,6 @@ import coma112.creports.CReports;
 import coma112.creports.enums.keys.ConfigKeys;
 import coma112.creports.enums.keys.MessageKeys;
 import coma112.creports.menu.menus.MainMenu;
-import coma112.creports.menu.menus.UnclaimedMenu;
 import coma112.creports.utils.MenuUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -12,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import revxrsal.commands.annotation.Command;
+import revxrsal.commands.annotation.DefaultFor;
 import revxrsal.commands.annotation.Subcommand;
 import revxrsal.commands.bukkit.annotation.CommandPermission;
 
@@ -20,6 +20,18 @@ import java.util.Objects;
 
 @Command({"report", "creports"})
 public class CommandReport {
+    @DefaultFor({"report", "creports"})
+    public void defaultCommand(@NotNull CommandSender sender) {
+        help(sender);
+    }
+
+    @Subcommand("help")
+    public void help(@NotNull CommandSender sender) {
+        MessageKeys.HELP
+                .getMessages()
+                .forEach(sender::sendMessage);
+    }
+
 
     @Subcommand("new")
     @CommandPermission("creports.use")
@@ -63,7 +75,6 @@ public class CommandReport {
     public void reload(@NotNull CommandSender sender) {
         CReports.getInstance().getLanguage().reload();
         CReports.getInstance().getConfiguration().reload();
-        CReports.getDatabaseManager().reconnect();
         sender.sendMessage(MessageKeys.RELOAD.getMessage());
     }
 

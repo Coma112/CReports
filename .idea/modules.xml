@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CReports.main.iml" filepath="$PROJECT_DIR$/.idea/modules/CReports.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/CReports.test.iml" filepath="$PROJECT_DIR$/.idea/modules/CReports.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coma112.CReports.main.iml" filepath="$PROJECT_DIR$/.idea/modules/coma112.CReports.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/coma112.CReports.test.iml" filepath="$PROJECT_DIR$/.idea/modules/coma112.CReports.test.iml" />
     </modules>
   </component>
 </project>

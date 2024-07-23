@@ -1,4 +1,14 @@
 messages:
+  help:
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
+    - "&e/creports reload &f- &7Reloads the plugin."
+    - "&e/creports new &7(&etarget&7) &7(&ereason&7) &f- &7Reports the target."
+    - "&e/creports menu &f- &7Opens the report menu."
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
   reload: "&e&lREPORTS &8| &aI have successfully reloaded the files!"
   report-right-usage: "&e&lREPORTS &8| &c/report [player] [reason]"
   can't-report-yourself: "&e&lREPORTS &8| &cYou can't report yourself!"

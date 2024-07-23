@@ -8,7 +8,6 @@ import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
 import coma112.creports.menu.PaginatedMenu;
 import coma112.creports.utils.MenuUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

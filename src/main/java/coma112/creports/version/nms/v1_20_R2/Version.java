@@ -1,6 +1,5 @@
 package coma112.creports.version.nms.v1_20_R2;
 
-import coma112.creports.managers.Report;
 import coma112.creports.utils.ReportLogger;
 import coma112.creports.version.ServerVersionSupport;
 import org.bukkit.plugin.Plugin;
@@ -25,4 +24,3 @@ public class Version implements ServerVersionSupport {
         return true;
     }
 }
-
