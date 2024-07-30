@@ -1,6 +1,7 @@
 package coma112.creports.menu;
 
 import coma112.creports.enums.keys.ConfigKeys;
+import coma112.creports.enums.keys.ItemKeys;
 import coma112.creports.item.IItemBuilder;
 import coma112.creports.processor.MessageProcessor;
 import coma112.creports.utils.MenuUtils;
@@ -10,13 +11,15 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.stream.IntStream;
+
 @SuppressWarnings("deprecation")
 public abstract class Menu implements InventoryHolder {
 
     protected MenuUtils menuUtils;
     protected Inventory inventory;
 
-    public Menu(MenuUtils menuUtils) {
+    public Menu(@NotNull MenuUtils menuUtils) {
         this.menuUtils = menuUtils;
     }
 
@@ -49,9 +52,9 @@ public abstract class Menu implements InventoryHolder {
     public void setFillerGlass() {
         if (!enableFillerGlass()) return;
 
-        for (int i = 0; i < getSlots(); i++) {
-            if (inventory.getItem(i) == null) inventory.setItem(i, IItemBuilder.createItemFromSection("filler-glass-item"));
-        }
+        IntStream.range(0, getSlots()).forEach(index -> {
+            if (inventory.getItem(index) == null) inventory.setItem(index, ItemKeys.FILLER_GLASS_ITEM.getItem());
+        });
     }
 
     public void close() {

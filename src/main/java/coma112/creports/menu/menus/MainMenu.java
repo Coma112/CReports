@@ -1,6 +1,7 @@
 package coma112.creports.menu.menus;
 
 import coma112.creports.enums.keys.ConfigKeys;
+import coma112.creports.enums.keys.ItemKeys;
 import coma112.creports.item.IItemBuilder;
 import coma112.creports.menu.Menu;
 import coma112.creports.utils.MenuUtils;
@@ -55,9 +56,9 @@ public class MainMenu extends Menu implements Listener {
 
     @Override
     public void setMenuItems() {
-        inventory.setItem(ConfigKeys.MAIN_CLAIMED_MENU_SLOT.getInt(), IItemBuilder.createItemFromSection("main-menu.claimed-menu-item"));
-        inventory.setItem(ConfigKeys.MAIN_UNCLAIMED_MENU_SLOT.getInt(), IItemBuilder.createItemFromSection("main-menu.unclaimed-menu-item"));
-        inventory.setItem(ConfigKeys.MAIN_COMBINED_MENU_SLOT.getInt(), IItemBuilder.createItemFromSection("main-menu.combined-menu-item"));
+        inventory.setItem(ConfigKeys.MAIN_CLAIMED_MENU_SLOT.getInt(), ItemKeys.MAIN_CLAIMED_MENU_ITEM.getItem());
+        inventory.setItem(ConfigKeys.MAIN_UNCLAIMED_MENU_SLOT.getInt(), ItemKeys.MAIN_UNCLAIMED_MENU_ITEM.getItem());
+        inventory.setItem(ConfigKeys.MAIN_COMBINED_MENU_SLOT.getInt(), ItemKeys.MAIN_COMBINED_MENU_ITEM.getItem());
         setFillerGlass();
     }
 

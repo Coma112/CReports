@@ -3,6 +3,7 @@ package coma112.creports.menu.menus;
 import coma112.creports.CReports;
 import coma112.creports.database.AbstractDatabase;
 import coma112.creports.enums.keys.ConfigKeys;
+import coma112.creports.enums.keys.ItemKeys;
 import coma112.creports.enums.keys.MessageKeys;
 import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @SuppressWarnings("deprecation")
 public class CombinedMenu extends PaginatedMenu implements Listener{
@@ -29,8 +31,8 @@ public class CombinedMenu extends PaginatedMenu implements Listener{
 
     @Override
     public void addMenuBorder() {
-        inventory.setItem(ConfigKeys.COMBINED_BACK_SLOT.getInt(), IItemBuilder.createItemFromSection("unclaimed-menu.back-item"));
-        inventory.setItem(ConfigKeys.COMBINED_FORWARD_SLOT.getInt(), IItemBuilder.createItemFromSection("unclaimed-menu.forward-item"));
+        inventory.setItem(ConfigKeys.COMBINED_BACK_SLOT.getInt(), ItemKeys.COMBINED_BACK_ITEM.getItem());
+        inventory.setItem(ConfigKeys.COMBINED_FORWARD_SLOT.getInt(), ItemKeys.COMBINED_FORWARD_ITEM.getItem());
     }
 
     @Override
@@ -60,15 +62,14 @@ public class CombinedMenu extends PaginatedMenu implements Listener{
 
     @Override
     public void setMenuItems() {
-        AbstractDatabase database = CReports.getDatabaseManager();
-        List<Report> reports = database.getReports();
+        List<Report> reports = CReports.getDatabaseManager().getReports();
         inventory.clear();
         addMenuBorder();
 
         int startIndex = page * getMaxItemsPerPage();
         int endIndex = Math.min(startIndex + getMaxItemsPerPage(), reports.size());
 
-        for (int i = startIndex; i < endIndex; i++) inventory.addItem(createReportItem(reports.get(i)));
+        IntStream.range(startIndex, endIndex).forEach(index -> inventory.addItem(createReportItem(reports.get(index))));
     }
 
     @Override
@@ -112,7 +113,7 @@ public class CombinedMenu extends PaginatedMenu implements Listener{
 
 
     private static ItemStack createReportItem(@NotNull Report report) {
-        ItemStack itemStack = IItemBuilder.createItemFromSection("report-item");
+        ItemStack itemStack = ItemKeys.REPORT_ITEM.getItem();
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta != null) {
@@ -124,13 +125,15 @@ public class CombinedMenu extends PaginatedMenu implements Listener{
             List<String> lore = meta.getLore();
             if (lore != null) {
                 List<String> updatedLore = new ArrayList<>();
-                for (String line : lore) {
+
+                lore.forEach(line -> {
                     String updatedLine = line
                             .replace("{target}", report.target())
                             .replace("{reason}", report.reason())
                             .replace("{date}", report.date());
                     updatedLore.add(updatedLine);
-                }
+                });
+
                 meta.setLore(updatedLore);
             }
         }

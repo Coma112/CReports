@@ -1,6 +1,7 @@
 package coma112.creports.menu;
 
 import coma112.creports.utils.MenuUtils;
+import org.jetbrains.annotations.NotNull;
 
 
 public abstract class PaginatedMenu extends Menu {
@@ -9,7 +10,7 @@ public abstract class PaginatedMenu extends Menu {
     protected int page = 0;
     public abstract int getMaxItemsPerPage();
 
-    public PaginatedMenu(MenuUtils menuUtils) {
+    public PaginatedMenu(@NotNull MenuUtils menuUtils) {
         super(menuUtils);
     }
 }

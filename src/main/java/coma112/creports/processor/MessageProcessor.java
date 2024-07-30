@@ -6,10 +6,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
-
+@SuppressWarnings("deprecation")
 public class MessageProcessor {
-    @SuppressWarnings("deprecation")
     public static @NotNull String process(@Nullable String message) {
         if (message == null) return "";
 
@@ -18,15 +18,17 @@ public class MessageProcessor {
 
         while (matcher.find()) {
             String hexCode = message.substring(matcher.start(), matcher.end());
-            String replaceSharp = hexCode.replace('#', 'x');
 
-            StringBuilder builder = new StringBuilder();
-            for (char c : replaceSharp.toCharArray()) builder.append("&").append(c);
+            String result = hexCode
+                    .substring(1)
+                    .chars()
+                    .mapToObj(c -> "&" + (char) c)
+                    .collect(Collectors.joining());
 
-            message = message.replace(hexCode, builder.toString());
+            message = message.replace(hexCode, result);
             matcher = pattern.matcher(message);
         }
+
         return ChatColor.translateAlternateColorCodes('&', message);
     }
-
 }

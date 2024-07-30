@@ -11,18 +11,16 @@ import revxrsal.commands.bukkit.BukkitCommandHandler;
 import java.util.HashSet;
 import java.util.Set;
 
+@SuppressWarnings("deprecation")
 public class RegisterUtils {
-    @SuppressWarnings("deprecation")
     public static void registerEvents() {
-        Set<Class<? extends Listener>> listenerClasses = getListenerClasses();
-
-        for (Class<? extends Listener> clazz : listenerClasses) {
+        getListenerClasses().forEach(clazz -> {
             try {
                 CReports.getInstance().getServer().getPluginManager().registerEvents(clazz.newInstance(), CReports.getInstance());
             } catch (InstantiationException | IllegalAccessException exception) {
                 ReportLogger.error(exception.getMessage());
             }
-        }
+        });
     }
 
     public static void registerCommands() {

@@ -3,6 +3,7 @@ package coma112.creports.menu.menus;
 import coma112.creports.CReports;
 import coma112.creports.database.AbstractDatabase;
 import coma112.creports.enums.keys.ConfigKeys;
+import coma112.creports.enums.keys.ItemKeys;
 import coma112.creports.enums.keys.MessageKeys;
 import coma112.creports.item.IItemBuilder;
 import coma112.creports.managers.Report;
@@ -19,18 +20,19 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @SuppressWarnings("deprecation")
 public class ClaimedMenu extends PaginatedMenu implements Listener {
 
-    public ClaimedMenu(MenuUtils menuUtils) {
+    public ClaimedMenu(@NotNull MenuUtils menuUtils) {
         super(menuUtils);
     }
 
     @Override
     public void addMenuBorder() {
-        inventory.setItem(ConfigKeys.CLAIMED_BACK_SLOT.getInt(), IItemBuilder.createItemFromSection("claimed-menu.back-item"));
-        inventory.setItem(ConfigKeys.CLAIMED_FORWARD_SLOT.getInt(), IItemBuilder.createItemFromSection("claimed-menu.forward-item"));
+        inventory.setItem(ConfigKeys.CLAIMED_BACK_SLOT.getInt(), ItemKeys.CLAIMED_BACK_ITEM.getItem());
+        inventory.setItem(ConfigKeys.CLAIMED_FORWARD_SLOT.getInt(), ItemKeys.CLAIMED_FORWARD_ITEM.getItem());
     }
 
     @Override
@@ -68,11 +70,9 @@ public class ClaimedMenu extends PaginatedMenu implements Listener {
         int startIndex = page * getMaxItemsPerPage();
         int endIndex = Math.min(startIndex + getMaxItemsPerPage(), reports.size());
 
-        for (int i = startIndex; i < endIndex; i++) {
-            Report report = reports.get(i);
-
-            if (database.getClaimer(report) != null) inventory.addItem(createReportItem(reports.get(i)));
-        }
+        IntStream.range(startIndex, endIndex).forEach(index -> {
+            if (database.getClaimer(reports.get(index)) != null) inventory.addItem(createReportItem(reports.get(index)));
+        });
     }
 
     @EventHandler
@@ -115,7 +115,7 @@ public class ClaimedMenu extends PaginatedMenu implements Listener {
     }
 
     private static ItemStack createReportItem(@NotNull Report report) {
-        ItemStack itemStack = IItemBuilder.createItemFromSection("report-item");
+        ItemStack itemStack = ItemKeys.REPORT_ITEM.getItem();
         ItemMeta meta = itemStack.getItemMeta();
 
         if (meta != null) {
@@ -127,13 +127,15 @@ public class ClaimedMenu extends PaginatedMenu implements Listener {
             List<String> lore = meta.getLore();
             if (lore != null) {
                 List<String> updatedLore = new ArrayList<>();
-                for (String line : lore) {
+
+                lore.forEach(line -> {
                     String updatedLine = line
                             .replace("{target}", report.target())
                             .replace("{reason}", report.reason())
                             .replace("{date}", report.date());
                     updatedLore.add(updatedLine);
-                }
+                });
+
                 meta.setLore(updatedLore);
             }
         }

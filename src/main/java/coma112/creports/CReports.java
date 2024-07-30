@@ -27,9 +27,9 @@ public final class CReports extends JavaPlugin {
 
     @Getter private static CReports instance;
     @Getter private static AbstractDatabase databaseManager;
-    private static Language language;
-    private static Config config;
-    private static TaskScheduler scheduler;
+    @Getter private Language language;
+    @Getter private TaskScheduler scheduler;
+    private Config config;
 
     @Override
     public void onLoad() {
@@ -60,16 +60,8 @@ public final class CReports extends JavaPlugin {
         if (databaseManager != null) databaseManager.disconnect();
     }
 
-    public Language getLanguage() {
-        return language;
-    }
-
     public Config getConfiguration() {
         return config;
-    }
-
-    public TaskScheduler getScheduler() {
-        return scheduler;
     }
 
     private void initializeComponents() {

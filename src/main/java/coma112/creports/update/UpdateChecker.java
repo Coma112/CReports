@@ -1,11 +1,13 @@
 package coma112.creports.update;
 
 import coma112.creports.CReports;
-import org.bukkit.Bukkit;
-
+import coma112.creports.utils.ReportLogger;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Scanner;
 import java.util.function.Consumer;
 
@@ -17,11 +19,22 @@ public class UpdateChecker {
     }
 
     public void getVersion(final Consumer<String> consumer) {
-        Bukkit.getScheduler().runTaskAsynchronously(CReports.getInstance(), () -> {
-            try (InputStream is = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId + "/~").openStream(); Scanner scanner = new Scanner(is)) {
-                if (scanner.hasNext()) { consumer.accept(scanner.next()); }
-            } catch (IOException exception) {
-                CReports.getInstance().getLogger().info("Unable to check for updates: " + exception.getMessage());
+        CReports.getInstance().getScheduler().runTaskAsynchronously(() -> {
+            try {
+                URI uri = new URI("https://api.spigotmc.org/legacy/update.php?resource=" + this.resourceId + "/~");
+                HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
+                connection.setRequestMethod("GET");
+
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                    Scanner scanner = new Scanner(reader);
+
+                    if (scanner.hasNext()) consumer.accept(scanner.next());
+                } catch (IOException exception) {
+                    ReportLogger.warn(exception.getMessage());
+                }
+
+            } catch (URISyntaxException | IOException exception) {
+                ReportLogger.warn(exception.getMessage());
             }
         });
     }
