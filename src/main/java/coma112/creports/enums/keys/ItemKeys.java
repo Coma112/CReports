@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 public enum ItemKeys {
     CLAIMED_BACK_ITEM("claimed-menu.back-item"),
     UNCLAIMED_BACK_ITEM("unclaimed-menu.back-item"),
-    UNCLAIMED_FORWARD_ITEM("unclaimed-menu.back-item"),
+    UNCLAIMED_FORWARD_ITEM("unclaimed-menu.forward-item"),
     COMBINED_FORWARD_ITEM("claimed-menu.forward-item"),
     COMBINED_BACK_ITEM("claimed-menu.back-item"),
     MAIN_CLAIMED_MENU_ITEM("main-menu.claimed-menu-item"),
