@@ -25,6 +25,7 @@ database:
 report-item:
   material: PAPER
   name: "&2{player}&a's report (#{id})"
+  custommodeldata: 0
   lore:
     - ""
     - "&eTARGET: &a{target}"
@@ -35,6 +36,7 @@ report-item:
 filler-glass-item:
   material: GRAY_STAINED_GLASS_PANE
   name: " "
+  custommodeldata: 0
   lore: []
 
 # Menu Configuration
@@ -43,11 +45,13 @@ claimed-menu:
     amount: 1
     material: RED_STAINED_GLASS
     name: "&cBack"
+    custommodeldata: 0
     slot: 45
   forward-item:
     amount: 1
     material: GREEN_STAINED_GLASS
     name: "&aForward"
+    custommodeldata: 0
     slot: 53
   title: "&eCLAIMED REPORTS"
   size: 54
@@ -58,11 +62,13 @@ unclaimed-menu:
     amount: 1
     material: RED_STAINED_GLASS
     name: "&cBack"
+    custommodeldata: 0
     slot: 45
   forward-item:
     amount: 1
     material: GREEN_STAINED_GLASS
     name: "&aForward"
+    custommodeldata: 0
     slot: 53
   title: "&e&lUNCLAIMED REPORTS"
   size: 54
@@ -73,11 +79,13 @@ combined-menu:
     amount: 1
     material: RED_STAINED_GLASS
     name: "&cBack"
+    custommodeldata: 0
     slot: 45
   forward-item:
     amount: 1
     material: GREEN_STAINED_GLASS
     name: "&aForward"
+    custommodeldata: 0
     slot: 53
   title: "&e&lREPORTS"
   size: 54
@@ -88,16 +96,19 @@ main-menu:
     amount: 1
     material: GREEN_CONCRETE
     name: "&aClaimed Reports"
+    custommodeldata: 0
     slot: 6
   combined-menu-item:
     amount: 1
     material: YELLOW_CONCRETE
     name: "&eALL"
+    custommodeldata: 0
     slot: 4
   unclaimed-menu-item:
     amount: 1
     material: RED_CONCRETE
     name: "&cUnclaimed Reports"
+    custommodeldata: 0
     slot: 2
   title: "&e&lMAIN MENU"
   size: 9

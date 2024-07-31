@@ -48,6 +48,7 @@ public interface IItemBuilder {
 
         return this;
     }
+    ItemBuilder setCustomModelData(int customModelData);
 
     ItemBuilder addLore(@NotNull String... lores);
 
@@ -79,12 +80,14 @@ public interface IItemBuilder {
         int amount = section.getInt("amount", 1);
         String name = section.getString("name");
         String[] loreArray = section.getStringList("lore").toArray(new String[0]);
+        int customModelData = section.getInt("custommodeldata", 0);
 
         IntStream.range(0, loreArray.length).forEach(i -> loreArray[i] = MessageProcessor.process(loreArray[i]));
 
         return IItemBuilder.create(material, amount)
                 .setName(Objects.requireNonNull(name))
                 .addLore(loreArray)
+                .setCustomModelData(customModelData)
                 .finish();
     }
 

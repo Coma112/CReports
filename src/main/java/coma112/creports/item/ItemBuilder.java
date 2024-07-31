@@ -43,6 +43,12 @@ public class ItemBuilder implements IItemBuilder {
     }
 
     @Override
+    public ItemBuilder setCustomModelData(@NotNull int customModelData) {
+        meta.setCustomModelData(customModelData);
+        return this;
+    }
+
+    @Override
     public ItemBuilder setType(@NotNull Material material) {
         is.setType(material);
         return this;
@@ -101,6 +107,8 @@ public class ItemBuilder implements IItemBuilder {
 
         return this;
     }
+
+
 
     @Override
     public ItemStack finish() {

@@ -1,5 +1,5 @@
 name: CReports
-version: '1.0.5'
+version: '1.0.6'
 main: coma112.creports.CReports
 api-version: '1.18'
 authors:
