@@ -14,12 +14,6 @@ database:
     certificateverification: false
     poolsize: 10
     lifetime: 1800000
-  mongodb:
-    host: localhost
-    port: 27017
-    database: reports
-    username: ""
-    password: ""
 
 # This is the report item in the GUI.
 report-item:
