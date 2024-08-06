@@ -1,0 +1,22 @@
+# Created by: alexisdvv on Discord
+messages:
+  help:
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
+    - "&e/creports reload &f- &7Recarga el plugin."
+    - "&e/creports new &7(&ejugador&7) &7(&erazón&7) &f- &7Reporta al jugador."
+    - "&e/creports menu &f- &7Abre el menú de reportes."
+    - ""
+    - "&8&l━━━━━━━━━━━━━━━━━━━━━━━[━━&e&lCREPORT&8&l━━]━━━━━━━━━━━━━━━━━━━━━━━"
+    - ""
+  reload: "&e&lREPORTS &8| &aHas recargado los archivos con éxito."
+  report-right-usage: "&e&lREPORTS &8| &c/report [jugador] [razón]"
+  can't-report-yourself: "&e&lREPORTS &8| &c¡No puedes reportarte a ti mismo!"
+  admin-message: "&e&lREPORTS &8| &2{sender} &areporto a &2{target} &a@ &2{date} &apor &2{reason}&a."
+  successful-report: "&e&lREPORTS &8| &a¡Has reportado con éxito a &2{target}&a!"
+  player-is-offline: "&e&lREPORTS &8| &c¡El jugador está desconectado!"
+  first-page: "&e&lREPORTS &8| &c¡Ya estás en la primera página!"
+  last-page: "&e&lREPORTS &8| &c¡Ya está en la última página!"
+  dead-player: "&e&lREPORTS &8| &c¡El jugador está muerto!"
+  already-reported: "&e&lREPORTS &8| &c¡Este jugador ya ha sido reportado!"
